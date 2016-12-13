@@ -1,4 +1,11 @@
-/* The standard CSS for doxygen 1.8.12 */
+/*
+ * My own little style
+ */
+
+/* Colors */
+:root {
+    --primary-color: #00549f;
+}
 
 body, table, div, p, dl {
 	font: 400 14px/22px Roboto,sans-serif;
@@ -19,7 +26,7 @@ h1.groupheader {
 
 h2.groupheader {
 	border-bottom: 1px solid #879ECB;
-	color: #00549f;
+	color: var(--primary-color);
 	font-size: 150%;
 	font-weight: normal;
 	margin-top: 1.75em;
@@ -524,8 +531,7 @@ table.memberdecls {
     background-color: #f6f6f6;
     line-height: 1.25;
     font-weight: bold;
-    /* color: #cc071e; */
-    color: #00549f;
+    color: var(--primary-color);
     float: left;
     z-index: 0;
     position: relative;
@@ -622,7 +628,7 @@ table.memberdecls {
 
 .memdoc, dl.reflist dd {
     border: none;
-    border-left: 3px solid #00549f;
+    border-left: 3px solid var(--primary-color);
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
@@ -992,7 +998,7 @@ table.fieldtable {
 	float:left;
 	padding-left:10px;
 	padding-right:15px;
-    background-color: #00549f;
+    background-color: var(--primary-color);
 	background-image:url('nav_edge.svg');
 	background-repeat:no-repeat;
 	background-position:right;
