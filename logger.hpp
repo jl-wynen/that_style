@@ -72,6 +72,16 @@ public:
      * @bug a terrible insect
      * @bug an ant
      * @todo some more to to
+     * @test a test
+     * @deprecated don't use anymore
+     * @note Note
+     * @warning warn
+     * @attention look out
+     *
+     * Some text
+     * @pre first
+     * @post last
+     * @invariant inv
      */
     Logger();
 
