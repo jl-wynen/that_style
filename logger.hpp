@@ -67,6 +67,11 @@ public:
     /// Default constructor
     /**
      * Does not set a log file and uses default parameters.
+     * @remark a remark
+     * @todo something to do
+     * @bug a terrible insect
+     * @bug an ant
+     * @todo some more to to
      */
     Logger();
 
@@ -75,11 +80,13 @@ public:
      * Other parameters are set to default values.
      * @param fname Name of the log file
      * @param app Append messages to existing log file or replace old file?
+     * @todo more to do
      */
     Logger(const char * const fname, const bool app = true);
 
     /**
      * Flushes the message queue, see flush()
+     * @bug uh oh!
      */
     ~Logger();
 
