@@ -394,9 +394,17 @@ private:
         const noexcept;
 };
 
+/**
+ * \defgroup reportMacroGroup Report Macros
+ * \brief Macros around Logger::report*
+ *
+ * Some useful convenient macros to insert file, line, and func arguments.
+ */
+
 #ifndef repRaw
 /// Convenienece wrapper around Logger::reportRaw()
 /**
+ * \ingroup reportMacroGroup
  * Uses the global Logger to report a raw message.
  * Writes the message to cout if the global %Logger is not set.
  *
@@ -416,6 +424,7 @@ private:
 #ifndef repMsg
 /// Convenienece wrapper around Logger::reportMessage()
 /**
+ * \ingroup reportMacroGroup
  * Uses the global Logger to report a message and automatically supplies
  * the file, line, and function arguments.<BR>
  * Writes the message to cout if the global %Logger is not set.
@@ -438,6 +447,7 @@ private:
 #ifndef repErr
 /// Convenienece wrapper around Logger::reportError()
 /**
+ * \ingroup reportMacroGroup
  * Uses the global Logger to report an error and automatically supplies
  * the file, line, and function arguments.<BR>
  * Writes the message to cout if the global %Logger is not set.
