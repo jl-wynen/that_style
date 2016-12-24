@@ -370,7 +370,7 @@ private:
     /**
      * General function to create a formatted message.
      * The format is
-     * <TT>"(\<date-time\>) ERROR [\<file\> | \<line\> | \<function\>] message"</TT>.
+     * <TT>"(<date-time>) ERROR [<file> | <line> | <function>] message"</TT>.
      * - <TT>\<date-time\></TT> is built using makeTimeString(), it is omitted if insertTime==false
      *   (including the parentheses)
      * - ERROR is only present when error==true
