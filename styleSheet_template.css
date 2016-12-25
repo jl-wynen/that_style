@@ -185,11 +185,11 @@ a.el {
 a.elRef {
 }
 
-a.code, a.code:visited, a.line, a.line:visited {
-	color: #4665A2;
+a.code, a.code:visited {
+	color: #5f9ea0;
 }
 
-a.codeRef, a.codeRef:visited, a.lineRef, a.lineRef:visited {
+a.codeRef, a.codeRef:visited {
 	color: #4665A2;
 }
 
@@ -213,37 +213,44 @@ pre.fragment {
 }
 
 div.fragment {
-        padding: 0px;
-        margin: 4px 8px 4px 2px;
-	background-color: #FBFCFD;
-	border: 1px solid #C4CFE5;
+    padding: 0px;
+    margin: 4px 8px 4px 2px;
+    color: #bebebe;
+    background-color: #262626;
+    border: 4px solid #e8e8e8;
+    border-radius: 3px;
 }
 
 div.line {
-	font-family: monospace, fixed;
-        font-size: 13px;
-	min-height: 13px;
-	line-height: 1.0;
-	text-wrap: unrestricted;
-	white-space: -moz-pre-wrap; /* Moz */
-	white-space: -pre-wrap;     /* Opera 4-6 */
-	white-space: -o-pre-wrap;   /* Opera 7 */
-	white-space: pre-wrap;      /* CSS3  */
-	word-wrap: break-word;      /* IE 5.5+ */
-	text-indent: -53px;
-	padding-left: 53px;
-	padding-bottom: 0px;
-	margin: 0px;
-	-webkit-transition-property: background-color, box-shadow;
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-property: background-color, box-shadow;
-	-moz-transition-duration: 0.5s;
-	-ms-transition-property: background-color, box-shadow;
-	-ms-transition-duration: 0.5s;
-	-o-transition-property: background-color, box-shadow;
-	-o-transition-duration: 0.5s;
-	transition-property: background-color, box-shadow;
-	transition-duration: 0.5s;
+    font-family: monospace, fixed;
+    font-size: 13px;
+    min-height: 13px;
+    line-height: 1.0;
+    text-wrap: unrestricted;
+    white-space: -moz-pre-wrap; /* Moz */
+    white-space: -pre-wrap;     /* Opera 4-6 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    white-space: pre-wrap;      /* CSS3  */
+    word-wrap: break-word;      /* IE 5.5+ */
+    text-indent: -53px;
+    padding-left: 53px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    margin: 0px;
+    -webkit-transition-property: background-color;
+    -webkit-transition-duration: 0s;
+    -moz-transition-property: background-color;
+    -moz-transition-duration: 0s;
+    -ms-transition-property: background-color;
+    -ms-transition-duration: 0s;
+    -o-transition-property: background-color;
+    -o-transition-duration: 0s;
+    transition-property: background-color;
+    transition-duration: 0s;
+}
+
+div.line:hover {
+    background-color: #1a1a1a;
 }
 
 div.line:after {
@@ -252,24 +259,32 @@ div.line:after {
 }
 
 div.line.glow {
-	background-color: cyan;
-	box-shadow: 0 0 10px cyan;
+    background-color: cyan;
+    box-shadow: 0 0 10px cyan;
 }
-
 
 span.lineno {
-	padding-right: 4px;
-	text-align: right;
-	border-right: 2px solid #0F0;
-	background-color: #E8E8E8;
-        white-space: pre;
+    padding-right: 4px;
+    text-align: right;
+    border-right: 3px solid #1d7567;
+    background-color: #a0a0a0;
+    color: black;
+    white-space: pre;
 }
+
 span.lineno a {
-	background-color: #D8D8D8;
+    background-color: inherit;
+    color: #1e595a;
+}
+
+span.lineno a:visited {
+    background-color: inherit;
+    color: #1e595a;
 }
 
 span.lineno a:hover {
-	background-color: #C8C8C8;
+    background-color: #C8C8C8;
+    text-decoration: none;
 }
 
 .lineno {
@@ -394,54 +409,40 @@ img.footer {
 /* @group Code Colorization */
 
 span.keyword {
-	color: #008000
+    color: #b03060;
 }
 
 span.keywordtype {
-	color: #604020
+    color: #d2691e;
 }
 
 span.keywordflow {
-	color: #e08000
+    color: #9370db;
+    font-weight: bold;
 }
 
 span.comment {
-	color: #800000
+    color: #afeeee;
+    font-style: oblique;
 }
 
 span.preprocessor {
-	color: #806020
+    color: #4eee94;
 }
 
 span.stringliteral {
-	color: #002080
+    color: #ee2c2c;
 }
 
 span.charliteral {
-	color: #008080
-}
-
-span.vhdldigit {
-	color: #ff00ff
-}
-
-span.vhdlchar {
-	color: #000000
-}
-
-span.vhdlkeyword {
-	color: #700070
-}
-
-span.vhdllogic {
-	color: #ff0000
+    color: #cd2626;
 }
 
 blockquote {
-        background-color: #F7F8FB;
-        border-left: 2px solid #9CAFD4;
-        margin: 0 24px 0 4px;
-        padding: 0 12px 0 16px;
+    background-color: #F7F8FB;
+    border-left: 2px solid #9CAFD4;
+    margin: 0 24px 0 4px;
+    padding: 0 12px 0 16px;
 }
 
 /* @end */
