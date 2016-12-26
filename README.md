@@ -24,5 +24,5 @@ I have no idea what to write anymore
 
 
 You can use it like:
-\include example.cpp
+\includelineno example.cpp
 

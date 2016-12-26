@@ -111,7 +111,7 @@ p.endtd {
 }
 
 #top {
-    border-bottom: 3px solid var(--background-color);
+    border-bottom: 4px solid var(--background-color);
     /* box-shadow:         0 4px 2px rgba(0,0,0,0.2), 0 8px 4px rgba(0,0,0,0.1); */
     /* -moz-box-shadow:    0 4px 2px rgba(0,0,0,0.2), 0 8px 4px rgba(0,0,0,0.1); */
     /* -webkit-box-shadow: 0 4px 2px rgba(0,0,0,0.2), 0 8px 4px rgba(0,0,0,0.1); */
@@ -201,7 +201,8 @@ dl.el {
 
 pre.fragment {
         border: 1px solid #C4CFE5;
-        background-color: #FBFCFD;
+        /* background-color: #FBFCFD; */
+        background-color: red;
         padding: 4px 6px;
         margin: 4px 8px 4px 2px;
         overflow: auto;
@@ -217,7 +218,7 @@ div.fragment {
     margin: 4px 8px 4px 2px;
     color: #bebebe;
     background-color: #262626;
-    border: 4px solid #e8e8e8;
+    border: 5px solid #e8e8e8;
     border-radius: 3px;
 }
 
@@ -658,7 +659,7 @@ table.memberdecls {
 
 .memdoc, dl.reflist dd {
     border: none;
-    border-left: 3px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
@@ -817,14 +818,14 @@ div.directory {
 }
 
 .directory .levels span {
-        cursor: pointer;
-        padding-left: 2px;
-        padding-right: 2px;
-	color: #3D578C;
+    cursor: pointer;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #3D578C;
 }
 
 .arrow {
-    color: #9CAFD4;
+    color: var(--primary-color);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -835,7 +836,62 @@ div.directory {
     display: inline-block;
     width: 16px;
     height: 22px;
+    margin-left: 4px;
 }
+
+.arrow:hover {
+    color: black;
+}
+
+#selected .arrow {
+    color: white;
+}
+
+#selected .arrow:hover {
+    color: #d2d2d2;
+}
+
+#nav-tree {
+    background-image: none;
+    background-color: white;
+}
+
+#nav-tree .item {
+    margin: 0;
+}
+
+#nav-tree a {
+    color: black;
+}
+
+#nav-tree .item:hover {
+    background-color: #d2d2d2;
+}
+
+#nav-tree .selected {
+    background-image: none;
+    background-color: var(--primary-color);
+    color: white;
+    text-shadow: none;
+}
+
+#nav-tree .selected:hover {
+    background-image: none;
+    background-color: var(--primary-color);
+    color: white;
+    text-shadow: none;
+}
+
+#nav-sync {
+    visibility: hidden;
+    display: none;
+}
+
+.ui-resizable-e {
+    background-image: url("splitbar.png");
+    background-repeat: repeat-y;
+}
+
 
 .icon {
     font-family: Arial, Helvetica;
@@ -1108,7 +1164,7 @@ div.header
     background-image: none;
     background-color: white;
     color: black;
-    margin: 0.5%;
+    margin: 0 0.5% 0.5% 0.5%;
 }
 
 div.headertitle
