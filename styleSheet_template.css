@@ -1079,11 +1079,27 @@ table.fieldtable {
 	padding: 0px;
 }
 
+/* first navelems */
 .navpath li {
+    list-style-type:none;
+    float:left;
+    padding-left:10px;
+    padding-right:15px;
+    color: black;
+    background-color: white;
+    background-image: none;
+    background-repeat:no-repeat;
+    background-position:right;
+    background-size: cover;
+}
+
+/* last navelem */
+.navpath li:nth-last-child(2) {
 	list-style-type:none;
 	float:left;
 	padding-left:10px;
 	padding-right:15px;
+    color: white;
     background-color: var(--primary-color);
 	background-image:url('nav_edge.svg');
 	background-repeat:no-repeat;
@@ -1096,14 +1112,14 @@ table.fieldtable {
 	display:block;
 	text-decoration: none;
 	outline: none;
-	color: white;
+	color: inherit;
     font-family: Roboto,sans-serif;
 	text-shadow: none;
 	text-decoration: none;
 }
 
 .navpath li.navelem a:hover {
-	color: white;
+	color: inherit;
     text-decoration: underline;
 }
 
