@@ -408,6 +408,7 @@ img.footer {
 }
 
 /* @group Code Colorization */
+/* TODO Long lines in code view */
 
 span.keyword {
     color: #b03060;

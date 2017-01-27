@@ -1,7 +1,6 @@
 #include "logger.hpp"
 
 #include <cstring>
-#include <ctime>
 #include <cstdio>
 #include <sstream>
 #include <fstream>
@@ -16,17 +15,14 @@ Logger *Logger::globalLogger = nullptr;
 
 
 // ----- ctors -----
-Logger::Logger() : logFileName(nullptr), append(true), coloured(true), firstWrite(true),
-                   maxQueueLength(5) {
+Logger::Logger(Properties const &p)
+    : logFileName(), outputProps(p), maxQueueLength(10), append(true), firstWrite(true) {
 }
 
 
-Logger::Logger(const char * const fname, const bool app)
-    : coloured(true), firstWrite(true), maxQueueLength(5) {
-    
-    this->logFileName = new char[strlen(fname)+1];
-    strcpy(this->logFileName, fname);
-    this->append = app;
+Logger::Logger(std::string const &fname, bool const app,
+               Properties const &p)
+    : logFileName(fname), outputProps(p),  maxQueueLength(10), append(app), firstWrite(true) {
 }
 
 
@@ -37,17 +33,18 @@ Logger::~Logger() {
 
 
 // ----- manage global logger -----
-Logger *Logger::buildGlobalLogger() noexcept {
+Logger *Logger::buildGlobalLogger(Properties const &p) noexcept {
     if (Logger::globalLogger != nullptr)
         Logger::deleteGlobalLogger();
-    Logger::globalLogger = new Logger();
+    Logger::globalLogger = new Logger(p);
     return Logger::globalLogger;
 }
 
-Logger *Logger::buildGlobalLogger(const char * const fname, const bool append) noexcept {
+Logger *Logger::buildGlobalLogger(std::string const &fname, const bool append,
+                                  Properties const &p) noexcept {
     if (Logger::globalLogger != nullptr)
         Logger::deleteGlobalLogger();
-    Logger::globalLogger = new Logger(fname, append);
+    Logger::globalLogger = new Logger(fname, append, p);
     return Logger::globalLogger;
 }
 
@@ -67,17 +64,15 @@ Logger *Logger::getGlobalLogger() noexcept {
 
     
 // ----- manage log file -----
-Logger::Status Logger::setLogFile(const char * const fname, const bool app) noexcept {
+Logger::Status Logger::setLogFile(std::string const &fname, bool const app) {
     lock_guard<mutex> lg(this->lock);
     Status st = Status::OK;
     
-    if (this->logFileName != nullptr) {
+    if (this->logFileName.size() != 0) {
         st = this->flush(true);
-        delete[] this->logFileName;
     }
     
-    this->logFileName = new char[strlen(fname)+1];
-    strcpy(this->logFileName, fname);
+    this->logFileName = fname;
 
     this->append = app;
     this->firstWrite = true;
@@ -85,28 +80,24 @@ Logger::Status Logger::setLogFile(const char * const fname, const bool app) noex
     return st;
 }
 
-char *Logger::getLogFile() noexcept {
+std::string Logger::getLogFile() {
     lock_guard<mutex> lg(this->lock);
-    char *fname = new char[strlen(this->logFileName)+1];
-    strcpy(fname, this->logFileName);
-    return fname;
+    return this->logFileName;
 }
 
-Logger::Status Logger::prepareLogFile(const char * const logName,
-                                      const bool skipLock) noexcept {
-
+Logger::Status Logger::prepareLogFile(std::string const &logName, bool const skipLock) {
     if (!skipLock)
         this->lock.lock();
-        
-    if (this->logFileName == nullptr)
+
+    if (this->logFileName.size() == 0)
         return Status::NO_LOG_FILE;
 
     // store array of dashes
     char *dashes;
     size_t length;
-    if (logName != nullptr)
+    if (logName.size() != 0)
         // length is max of lengths of name and time string plus 5 spaces on either side
-        length = max(strlen(logName), static_cast<size_t>(19)) + static_cast<size_t>(10);
+        length = max(logName.size(), static_cast<size_t>(19)) + static_cast<size_t>(10);
     else
         length = 19+10;
 
@@ -133,9 +124,9 @@ Logger::Status Logger::prepareLogFile(const char * const logName,
     if (this->append)
         ofs << endl;
     ofs << dashes << endl;
-    if (logName != nullptr)
+    if (logName.size() != 0)
         ofs << "     " << logName << endl;
-    ofs << "     " << Logger::makeTimeString() << endl;
+    ofs << "     " << makeDateTimeString() << endl;
     ofs << dashes << endl;
 
     if (ofs.fail()) {
@@ -155,8 +146,8 @@ Logger::Status Logger::prepareLogFile(const char * const logName,
     return Status::OK;
 }
 
-Logger::Status Logger::flush(const bool skipLock) noexcept {
-    if (this->logFileName == nullptr)
+Logger::Status Logger::flush(bool const skipLock) {
+    if (this->logFileName.size() == 0)
         return Status::NO_LOG_FILE;
 
     if (this->messages.size() == 0)
@@ -164,10 +155,10 @@ Logger::Status Logger::flush(const bool skipLock) noexcept {
     
     if (!skipLock)
         this->lock.lock();
-    
+
     if (this->firstWrite)
-        this->prepareLogFile(nullptr, true);
-    
+        this->prepareLogFile(std::string(), true);
+
     // open file
     ofstream ofs(this->logFileName, ios::out|ios::app);
     if (!ofs.is_open()) {
@@ -204,10 +195,10 @@ Logger::Status Logger::flush(const bool skipLock) noexcept {
 
 
 // ----- interface for raw messages -----
-Logger::Status Logger::reportRaw(const char * const message, const int stream) noexcept {
+Logger::Status Logger::reportRaw(std::string const &message, int const stream) {
     Status st;
     st = this->showRaw(message, stream);
-    if (this->logFileName != nullptr) {
+    if (this->logFileName.size() != 0) {
         if (st == Status::OK)
             st = this->logRaw(message);
         else
@@ -218,7 +209,7 @@ Logger::Status Logger::reportRaw(const char * const message, const int stream) n
     return st;
 }
 
-Logger::Status Logger::showRaw(const char * const message, const int stream) noexcept {
+Logger::Status Logger::showRaw(std::string const &message, int const stream) {
     lock_guard<mutex> lg(this->lock);
     if (stream == STDOUT_FILENO) {
         cout << message << endl;
@@ -234,9 +225,10 @@ Logger::Status Logger::showRaw(const char * const message, const int stream) noe
     }
     return Status::OK;
 }
-Logger::Status Logger::logRaw(const char * const message) noexcept {
+
+Logger::Status Logger::logRaw(std::string const &message) {
     lock_guard<mutex> lg(this->lock);
-    this->messages.push(string(message));
+    this->messages.push(message);
     if (this->messages.size() >= this->maxQueueLength)
         return this->flush(true);
     return Status::OK;
@@ -244,34 +236,34 @@ Logger::Status Logger::logRaw(const char * const message) noexcept {
 
 
 // ----- interface for messages -----
-Logger::Status Logger::reportMessage(const char * const file, const unsigned int line,
-                                     const char * const function,
-                                     const char * const message) noexcept {
+Logger::Status Logger::reportMessage(std::string const &file, unsigned int const line,
+                                     std::string const &function, std::string const &message,
+                                     Properties const *props) {
 
     Status st = Status::OK;
-    this->showMessage(file, line, function, message);
-    if (this->logFileName != nullptr)
-        st = this->logMessage(file, line, function, message);
+    this->showMessage(file, line, function, message, props);
+    if (this->logFileName.size() != 0)
+        st = this->logMessage(file, line, function, message, props);
     else
         return Status::NO_LOG_FILE;
     return st;
 }
 
-void Logger::showMessage(const char * const file, const unsigned int line,
-                         const char * const function,
-                         const char * const message) noexcept {
+void Logger::showMessage(std::string const &file, unsigned int const line,
+                         std::string const &function, std::string const &message,
+                         Properties const *props) {
 
     lock_guard<mutex> lg(this->lock);
-    cout << this->composeMessage(file, line, function, message, false, false, this->coloured*true) << endl;
+    cout << this->composeMessage(file, line, function, message, false, false, props) << endl;
     cout.flush();
 }
 
-Logger::Status Logger::logMessage(const char * const file, const unsigned int line,
-                                  const char * const function,
-                                  const char * const message) noexcept {
+Logger::Status Logger::logMessage(std::string const &file, unsigned int const line,
+                                  std::string const &function, std::string const &message,
+                                  Properties const *props) {
 
     lock_guard<mutex> lg(this->lock);
-    this->messages.push(this->composeMessage(file, line, function, message, false, true, false));
+    this->messages.push(this->composeMessage(file, line, function, message, false, true, props));
     if (this->messages.size() >= this->maxQueueLength)
         return this->flush(true);
     return Status::OK;
@@ -279,34 +271,34 @@ Logger::Status Logger::logMessage(const char * const file, const unsigned int li
 
 
 // ----- interface for errors -----
-Logger::Status Logger::reportError(const char * const file, const unsigned int line,
-                                     const char * const function,
-                                     const char * const message) noexcept {
+Logger::Status Logger::reportError(std::string const &file, unsigned int const line,
+                                   std::string const &function, std::string const &message,
+                                   Properties const *props) {
 
     Status st = Status::OK;
-    this->showError(file, line, function, message);
-    if (this->logFileName != nullptr)
-        st = this->logError(file, line, function, message);
+    this->showError(file, line, function, message, props);
+    if (this->logFileName.size() != 0)
+        st = this->logError(file, line, function, message, props);
     else
         return Status::NO_LOG_FILE;
     return st;
 }
 
-void Logger::showError(const char * const file, const unsigned int line,
-                         const char * const function,
-                         const char * const message) noexcept {
+void Logger::showError(std::string const &file, unsigned int const line,
+                       std::string const &function, std::string const &message,
+                       Properties const *props) {
 
     lock_guard<mutex> lg(this->lock);
-    cerr << this->composeMessage(file, line, function, message, true, false, this->coloured*true) << endl;
+    cerr << this->composeMessage(file, line, function, message, true, false, props) << endl;
     cerr.flush();
 }
 
-Logger::Status Logger::logError(const char * const file, const unsigned int line,
-                                  const char * const function,
-                                  const char * const message) noexcept {
+Logger::Status Logger::logError(std::string const &file, unsigned int const line,
+                                std::string const &function, std::string const &message,
+                                Properties const *props) {
 
     lock_guard<mutex> lg(this->lock);
-    this->messages.push(this->composeMessage(file, line, function, message, true, true, false));
+    this->messages.push(this->composeMessage(file, line, function, message, true, true, props));
     if (this->messages.size() >= this->maxQueueLength)
         return this->flush(true);
     return Status::OK;
@@ -314,48 +306,49 @@ Logger::Status Logger::logError(const char * const file, const unsigned int line
 
 
 // ----- miscellanious -----
-string Logger::makeLogName(const char * const name) noexcept {
-    char *timeStr = Logger::makeTimeString();
-    ostringstream ss;
+std::string Logger::makeLogName(std::string const &name) {
+    string timeStr = makeDateTimeString();
+    // replace all ':' by '-' and '|' by 'T'
+    // (better suited for file names)
+    for (size_t i = 0; i < timeStr.size(); i++) {
+        if (timeStr[i] == ':')
+            timeStr[i] = '-';
+        else if (timeStr[i] == '|')
+            timeStr[i] = 'T';
+    }
     
-    if (name != nullptr)
+    ostringstream ss;
+    if (name.size() != 0)
         ss << name << "_";
-
     ss << timeStr << ".log";
     return ss.str();
 }
 
-void Logger::setColoured(const bool clrd) noexcept {
-    lock_guard<mutex> lg(this->lock);
-    this->coloured = clrd;
-}
-
-void Logger::setMaxQueueLength(const unsigned char len) noexcept {
+void Logger::setMaxQueueLength(unsigned int const len) noexcept {
     this->maxQueueLength = len;
 }
 
-unsigned char Logger::getMaxQueueLength() const noexcept {
+unsigned int Logger::getMaxQueueLength() const noexcept {
     return this->maxQueueLength;
+}
+
+Logger::Properties Logger::getProperties() noexcept {
+    lock_guard<mutex> lg(this->lock);
+    return this->outputProps;
+}
+
+void Logger::setProperties(Properties const &props) {
+    lock_guard<mutex> lg(this->lock);
+    this->outputProps = props;
 }
 
 
 // ----- private -----
-char *Logger::makeTimeString() noexcept {
-    char *buf = new char[20];
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    sprintf(buf, "%u-%02u-%02uT%02u-%02u-%02u",
-            1900+ltm->tm_year, 1+ltm->tm_mon, ltm->tm_mday,
-            ltm->tm_hour, ltm->tm_min, ltm->tm_sec);
-    return buf;
-}
+string Logger::composeMessage(std::string const &file, unsigned int const line,
+                              std::string const &function, std::string const &message,
+                              bool const error, bool const toFile,
+                              Properties const * props) const {
 
-string Logger::composeMessage(const char * const file, const unsigned int line,
-                              const char * const function, const char * const message,
-                              const bool error, const bool insertTime, const bool colour)
-    const noexcept {
-
-    ostringstream ss;
     // designated output stream, only relevant when colour==true
     int stream;
     if (error)
@@ -363,54 +356,178 @@ string Logger::composeMessage(const char * const file, const unsigned int line,
     else
         stream = STDOUT_FILENO;
 
-    // insert date and time
-    if (insertTime) {
-        char *buf = Logger::makeTimeString();
-        ss << "(" << buf << ") ";
-        delete[] buf;
-    }
+    // use default props if none given
+    if (props == nullptr)
+        props = &this->outputProps;
 
+    bool const colour = !toFile && (props->flags & coloured);
+
+    // find maximum line length if needed
+    unsigned short maxLineLength = 80;
+    if (toFile && props->flags & breakLinesFile) {
+        if (props->maxLineLengthFile == 0) {  // use value for TTY
+            maxLineLength = props->maxLineLengthTTY;
+            if (!maxLineLength)
+                maxLineLength = getTerminalWidth();
+        }
+        else
+            maxLineLength = props->maxLineLengthFile;
+    }
+    else if (!toFile && props->flags & breakLinesTTY) {
+        maxLineLength = props->maxLineLengthTTY;
+        if (!maxLineLength)
+                maxLineLength = getTerminalWidth();
+    }
+    
+    ostringstream ss;    // format message
+    string SGR;          // aux string for terminal SGRs
+    unsigned short indentWidth;
+    string indent;       // spaces in front of each line
+    string extraIndent;  // extra spaces to align multi line messages
+    unsigned int lengthSGRs = 0;
+
+    if ((indentWidth = props->indent) != 0) {
+        indent = string(props->indent, ' ');
+        maxLineLength -= indentWidth;
+        ss << indent;
+    }
+    
+    // insert date and time
+    if (toFile && (props->flags & logDate || props->flags & logTime)) {
+        ss << "(" << makeDateTimeString(props->flags & logDate, props->flags & logTime)
+           << ") ";
+    }
+    
     // insert "ERROR"
     if (error) {
-        if (colour)
-            ss << shellColourCode({Colour::RED, true, Colour::DEFAULT, false, TextProperties::NORMAL},
+        if (colour) {
+            SGR = shellColourCode({Colour::RED, true, Colour::DEFAULT, false, TextProperties::NORMAL},
                                   stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
         ss << " ERROR  ";
-        if (colour)
-            ss << shellColourCode({}, stream);
+        if (colour) {
+            SGR = shellColourCode({}, stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
+
     }
 
     // insert file and line
-    if (file != nullptr) {
+    if (file.size() != 0) {
         ss << "[";
         // file
-        if (colour)
-            ss << shellColourCode({Colour::YELLOW}, stream);
+        if (colour) {
+            SGR = shellColourCode({Colour::YELLOW}, stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
         ss << file;
-        if (colour)
-            ss << shellColourCode({}, stream);
+        if (colour) {
+            SGR = shellColourCode({}, stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
         ss << " | ";
         // line
-        if (colour)
-            ss << shellColourCode({Colour::GREEN}, stream);
+        if (colour) {
+            SGR = shellColourCode({Colour::GREEN}, stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
         ss << line;
-        if (colour)
-            ss << shellColourCode({}, stream);
+        if (colour) {
+            SGR = shellColourCode({}, stream);
+            lengthSGRs += SGR.size();
+            ss << SGR;
+        }
+        
         // separator or end
-        if (function != nullptr)
+        if (function.size() != 0)
             ss << " | ";
         else
             ss << "]: ";
     }
 
-    // insert function
-    if (function != nullptr) {
-        if (file == nullptr)
+    // insert function name
+    if (function.size() != 0) {
+        if (file.size() == 0)
             ss << "[";
         ss << function << "()]: ";
     }
 
-    ss << message;
+    // store extra indentation
+    unsigned short extraIndentWidth = static_cast<unsigned short>(ss.str().size()
+                                                                  - props->indent
+                                                                  - lengthSGRs);
+    if (extraIndentWidth > maxLineLength*2/3)
+        extraIndentWidth = maxLineLength*1/3;  // make sure there is some space to print
+    if (props->flags & doExtraIndent) {
+        extraIndent = string(extraIndentWidth, ' ');
+    }
 
+    istringstream iss(message);
+    string lineStr;
+    bool firstLine = true, done;
+    size_t lineLength, startI;
+    unsigned short al;  // available length
+
+    // break lines that are too long
+    if ((toFile && props->flags & breakLinesFile)
+        || (!toFile && props->flags & breakLinesTTY)) {
+
+        // break lines at '\n'
+        while (std::getline(iss, lineStr, '\n')) {
+            lineLength = lineStr.size();
+            startI = 0;
+            done = false;
+
+            // line with file, line, and func tags
+            if (firstLine) {
+                al = maxLineLength - extraIndentWidth;
+                if (lineLength <= al) {  // message fits into line
+                    ss << lineStr;
+                    done = true;  // no need to process line any further
+                }
+                else {                   // need to split message
+                    ss << lineStr.substr(0,al);
+                    startI = al;
+                }
+                firstLine = false;
+            }
+                        
+            if (!done) {
+                // determine available length (maxLineLength is corrected for normal indent)
+                if (props->flags & doExtraIndent)
+                    al = maxLineLength - extraIndentWidth;
+                else
+                    al = maxLineLength;
+            
+                // continue splitting while necessary
+                while (startI < lineLength && lineLength-startI > al) {
+                    ss << endl << indent << extraIndent << lineStr.substr(startI,al);
+                    startI += al;
+                }
+                // write remainder that fits into line
+                if (startI < lineLength)
+                    ss << endl << indent << extraIndent << lineStr.substr(startI);
+            }
+        }
+
+    }
+    else {  // no extra line breaking, only at '\n'
+        while (std::getline(iss, lineStr, '\n')) {
+            if (firstLine) {
+                ss << lineStr;
+                firstLine = false;
+            } else {
+                ss << endl << indent << extraIndent << lineStr;
+            }
+        }
+    }
+    
+        
     return ss.str();
 }

@@ -6,13 +6,13 @@
  * @brief Provides Logger and macros around Logger::report*()
  *
  * The macros #repRaw, #repMsg, and #repErr try to use Logger::globalLogger
- * to report a message / error. If not possible, they just print the message.
+ * to report a message / error. If not possible, they just print the message to cout
+ * and cerr respectively.
  *
  * @author Jan-Lukas Wynen
- * @date 2016-12-07
  */
 
-#include "def.hpp"
+#include "util_def.hpp"
 
 #include <queue>
 #include <string>
@@ -22,6 +22,7 @@
 #if IS_UNIX
 #include <unistd.h>
 #endif
+
 
 
 /// Class to print output to terminal and file
@@ -62,69 +63,86 @@ public:
     /**
      * Encodes the success or failure of operations done by %Logger.
      */
-    enum class Status : unsigned char {OK, NO_LOG_FILE, OP_FAILED, INVALID_USE};
+    enum class Status : uint_least8_t {OK, NO_LOG_FILE, OP_FAILED, INVALID_USE};
 
-    /// Default constructor
+    using flag_t = unsigned short;   ///< Type for flags in Properties
+
+    static flag_t const coloured       = 1 << 0;  ///< Bit for coloured output (See Logger::Properties)
+    static flag_t const logDate        = 1 << 1;  ///< Bit to request logging the date (See Logger::Properties)
+    static flag_t const logTime        = 1 << 2;  ///< Bit to request logging the time (See Logger::Properties)
+    static flag_t const breakLinesTTY  = 1 << 3;  ///< Bit to indicate that lines shall be broken f too long for show* functions (See Logger::Properties)
+    static flag_t const breakLinesFile = 1 << 4;  ///< Bit to indicate that lines shall be broken if too long for log* functions (See Logger::Properties)
+    static flag_t const doExtraIndent  = 1 << 5;  ///< Bit to toggle extra indentation for alignment (See Logger::Properties)
+
+    /// POD collection of properties to control output of Logger
+    struct Properties {
+        flag_t flags;  ///< Bitwise combination of Logger::coloured, Logger::logDate, Logger::logTime, Logger::breakLinesTTY, Logger::breakLinesFile, and Logger::doExtraIndent
+        unsigned short indent;  ///< Depth of indentation of each line
+        unsigned short maxLineLengthTTY;  ///< Maximum length of lines on a terminal. Automatically determined if set to 0.
+        unsigned short maxLineLengthFile; ///< Maximum length of lines on a terminal. Uses value of maxLineLengthTTY if set to 0.
+        /// Lets go really deep
+        class PropsOfProps {
+            PropsOfProps() = default;
+            explicit PropsOfProps(const Logger &l) {}
+            PropsOfProps(PropsOfProps &other) = delete;
+        };
+    };
+
+    
+    /// Construct without assigning a log file
     /**
-     * Does not set a log file and uses default parameters.
-     * @remark a remark
-     * @todo something to do
-     * @bug a terrible insect
-     * @bug an ant
-     * @todo some more to to
-     * @test a test
-     * @deprecated don't use anymore
-     * @note Note
-     * @warning warn
-     * @attention look out
-     *
-     * Some text
-     * @pre first
-     * @post last
-     * @invariant inv
+     * @param p Output properties to use for this instance. Uses defaults if not specified.
+     * @see Logger::getDefaultProperties()
      */
-    Logger();
+    Logger(Properties const &p = Logger::getDefaultProperties());
 
     /// Assigns a log file
     /**
-     * Other parameters are set to default values.
      * @param fname Name of the log file
      * @param app Append messages to existing log file or replace old file?
-     * @todo more to do
+     * @param p Output properties to use for this instance. Uses defaults if not specified.
+     * @see Logger::getDefaultProperties()
      */
-    Logger(const char * const fname, const bool app = true);
+    Logger(std::string const &fname, bool const app = true,
+           Properties const &p = Logger::getDefaultProperties());
 
+    /// Destructor
     /**
      * Flushes the message queue, see flush()
-     * @bug uh oh!
      */
     ~Logger();
 
     
-    /// Construct the global %Logger with default ctor
+    /// Construct the global %Logger without assigning a file
     /**
      * Stores the "global Logger" internally. If it already existed, the old
-     * instance is deleted. *Not* thread-safe!
+     * instance is deleted.
+     * @note Not thread safe
+     *
+     * @param p p Output properties passed to the constructor
      * @return Pointer to the global %Logger
      */
-    static Logger *buildGlobalLogger() noexcept;
+    static Logger *buildGlobalLogger(Properties const &p = Logger::getDefaultProperties()) noexcept;
 
-    /// Construct the global %Logger with parameters
+    /// Construct the global %Logger and assigns a file
     /**
      * Stores the "global Logger" internally. If it already existed, the old
      * instance is deleted. The parameters are passed on to
-     * Logger(const char * const, const bool). *Not* thread-safe!
+     * Logger(const char * const, const bool).
+     * @note Not thread safe
      *
      * @param fname Name of the log file
      * @param app Append messages to existing log file or replace old file?
+     * @param p p Output properties passed to the constructor
      * @return Pointer to the global %Logger
      */
-    static Logger *buildGlobalLogger(const char * const fname, const bool app = true) noexcept;
+    static Logger *buildGlobalLogger(std::string const &fname, bool const app = true,
+                                     Properties const &p = Logger::getDefaultProperties()) noexcept;
 
     /// Removes global %Logger
     /**
      * Causes the message queue to be flushed.
-     * @return Status::INVALID_USE if no globale %Logger was set, Status::OK else
+     * @return Status::INVALID_USE if no global %Logger was set, Status::OK else
      */
     static Status deleteGlobalLogger() noexcept;
 
@@ -145,13 +163,13 @@ public:
      * @param app Append messages to existing log file or replace old file?
      * @return Status of flush() if called, Status::OK otherwise.
      */
-    Status setLogFile(const char * const fname, const bool app = true) noexcept;
+    Status setLogFile(std::string const &fname, bool const app = true);
 
     /// Get the name of the log file
     /**
-     * Copies the file name into a new c string.
+     * Copies the file name into a new string.
      */
-    char *getLogFile() noexcept;
+    std::string getLogFile();
 
     /// Insert a header into the log file
     /**
@@ -169,8 +187,8 @@ public:
      *   - Status::OK otherwise
      */
     // Does not regard mutex if skipLock = true
-    Status prepareLogFile(const char * const logName = nullptr,
-                          const bool skipLock = false) noexcept;
+    Status prepareLogFile(std::string const &logName = std::string(),
+                          bool const skipLock = false);
 
     /// Flushes message queue to file
     /**
@@ -184,136 +202,150 @@ public:
      *   - Status::OK otherwise
      */
     // Does not regard mutex if skipLock = true
-    Status flush(const bool skipLock = false) noexcept;
+    Status flush(bool const skipLock = false);
 
 
-    /// Show and log a string
+    /// Show and log a string without formatting
     /**
      * Writes a string to a given stream and to the log file if one has been specified.
      * Uses showRaw() and logRaw().
      *
      * @param message String to be written
      * @param stream ID for stream to use, can be STDOUT_FILENO or STDERR_FILENO
-     * @return Return value of showRaw() or logRaw() if former was Status::OK
+     * @return Logger::Status::NO_LOG_FILE if no log file is specified.
+     *     Otherwise return value of showRaw() or logRaw() if former was Status::OK
      */
-    Logger::Status reportRaw(const char * const message,
-                             const int stream = STDOUT_FILENO) noexcept;
+    Logger::Status reportRaw(std::string const &message,
+                             int const stream = STDOUT_FILENO);
 
-    /// Print a message to given stream
+    /// Print a message to given stream without formatting
     /**
      * Writes to cout if stream==STDOUT_FILENO or cerr if stream==STDERR_FILENO
      * @param message String to be written
      * @param stream ID for stream to use, can be STDOUT_FILENO or STDERR_FILENO
      * @return Status::INVALID_USE if stream parameter not known, Status::OK otherwise
      */
-    Logger::Status showRaw(const char * const message,
-                           const int stream = STDOUT_FILENO) noexcept;
+    Logger::Status showRaw(std::string const &message,
+                           int const stream = STDOUT_FILENO);
 
-    /// Store a message in log file
+    /// Store a message in log file without formatting
     /**
      * Appends a string to the message queue and flushes it if it is longer than
      * maxQueueLength. Also stores the message if no file is specified.
      * @param message String to be written
      * @return Result of flush() if called, Status::OK otherwise
      */
-    Logger::Status logRaw(const char * const message) noexcept;
+    Logger::Status logRaw(std::string const &message);
 
     
     /// Show and log a formatted message
     /**
      * Writes a message to cout and to the log file if specified by using showMessage()
-     * and logMessage().
+     * and logMessage().\n
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
-     * @return Result of logMessage() if log file is set
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
+     * @return Logger::Status::NO_LOG_FILE if no log file is specified.
+     *     Otherwise return logMessage().
      */
-    Logger::Status reportMessage(const char * const file, const unsigned int line,
-                                 const char * const function, const char * const message) noexcept;
+    Logger::Status reportMessage(std::string const &file, unsigned int const line,
+                                 std::string const &function, std::string const &message,
+                                 Properties const *props = nullptr);
 
     /// Print a formatted message to cout
     /**
-     * Writes a message formatted using shellColourCode() to cout.
-     * See composeMessage() for details (uses error=false, insertTime=false, colour=true).
+     * Writes a message formatted using composeMessage() to cout.\n
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props. Allows using colour but supresses date and time strings.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
      */
-    void showMessage(const char * const file, const unsigned int line,
-                     const char * const function, const char * const message) noexcept;
+    void showMessage(std::string const &file, unsigned int const line,
+                     std::string const &function, std::string const &message,
+                     Properties const *props = nullptr);
     
     /// Store a formatted message in log file
     /**
-     * Appends a formatted message to the message queue.
-     * It is flushed if it exceeds the maximum length.
-     * Also stores the message if no file is specified.
-     * See composeMessage() for details (uses error=false, insertTime=true, colour=false).
+     * Appends a formatted message to the message queue which is flushed if it exceeds
+     * the maximum length. Also stores the message if no file is specified.\n
+     * The message if formatted using composeMessage().
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props. Allows date and time strings but supresses colour.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
      * @return Result of flush() if called
      */
-    Logger::Status logMessage(const char * const file, const unsigned int line,
-                              const char * const function, const char * const message) noexcept;
+    Logger::Status logMessage(std::string const &file, unsigned int const line,
+                              std::string const &function, std::string const &message,
+                              Properties const *props = nullptr);
 
     
     /// Show and log a formatted error
     /**
      * Writes a message to cerr and to the log file if specified by using showError()
      * and logError().
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
-     * @return Result of logError() if log file is set
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
+     * @return Logger::Status::NO_LOG_FILE if no log file is specified.
+     *     Otherwise return value of showError().
      */
-    Logger::Status reportError(const char * const file, const unsigned int line,
-                                 const char * const function, const char * const message) noexcept;
+    Logger::Status reportError(std::string const &file, unsigned int const line,
+                               std::string const &function, std::string const &message,
+                               Properties const *props = nullptr);
 
     /// Print a formatted error to cerr
     /**
-     * Writes a message formatted using shellColourCode() to cerr.
-     * See composeMessage() for details (uses error=true, insertTime=false, colour=true).
+     * Writes a message formatted using composeMessage() to cerr.\n
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props. Allows using colour but supresses date and time strings.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
      */
-    void showError(const char * const file, const unsigned int line,
-                     const char * const function, const char * const message) noexcept;
+    void showError(std::string const &file, unsigned int const line,
+                   std::string const &function, std::string const &message,
+                   Properties const *props = nullptr);
 
     /// Store a formatted error in log file
     /**
-     * Appends a formatted error to the message queue.
-     * It is flushed if it exceeds the maximum length.
-     * Also stores the error message if no file is specified.
-     * See composeMessage() for details (uses error=true, insertTime=true, colour=false).
+     * Appends a formatted message to the message queue which is flushed if it exceeds
+     * the maximum length. Also stores the message if no file is specified.\n
+     * The message if formatted using composeMessage().
+     * Uses Properties instance of Logger to control formatting. Can be overwritten with
+     * parameter props. Allows date and time strings but supresses colour.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
      * @param function Name of the function this function is called from
      * @param message String to be written
+     * @param props Properties to control formatting of the message. If nullptr, uses outputProps.
      * @return Result of flush() if called
      */
-    Logger::Status logError(const char * const file, const unsigned int line,
-                              const char * const function, const char * const message) noexcept;
-
-
-    /// Select whether using colours
-    /**
-     * Set whether showMessage() and showError() should use colours for their output.
-     * Default is true.
-     * @param clrd Use coloured output?
-     */
-    void setColoured(const bool clrd) noexcept;
+    Logger::Status logError(std::string const &file, unsigned int const line,
+                            std::string const &function, std::string const &message,
+                            Properties const *props = nullptr);
 
     /// Set maximum length of message queue
     /**
@@ -322,14 +354,37 @@ public:
      * The default length is 5.
      * @param len New length for message queue
      */
-    void setMaxQueueLength(const unsigned char len) noexcept;
+    void setMaxQueueLength(unsigned int const len) noexcept;
 
     /// Get current maximum queue length
     /**
      * @return The maximum length of the message queue
      */
-    unsigned char getMaxQueueLength() const noexcept;
+    unsigned int getMaxQueueLength() const noexcept;
 
+    /// Return default output properties
+    /**
+     * @return New instance of Logger::Properties initialized with default parameters.
+     */
+    static constexpr Properties getDefaultProperties() noexcept {
+        return {Logger::coloured | Logger::logTime
+                | Logger::breakLinesTTY | Logger::breakLinesFile | Logger::doExtraIndent,
+                0, 0, 0};
+    }    
+
+    /// Return current instance of Properties
+    /*
+     * @return Copy of outputProps
+     */
+    Properties getProperties() noexcept;
+
+    /// Set new output properties
+    /**
+     * Copies the parameter into outputProps.
+     * @param props New output properties to use
+     */
+    void setProperties(Properties const &props);
+    
     /// Make a name for log files
     /**
      * Construct a file name for log files of the form
@@ -339,7 +394,7 @@ public:
      * @param name Optional name to prefix the file name
      * @return The constructed file name
      */
-    static std::string makeLogName(const char * const name = nullptr) noexcept;
+    static std::string makeLogName(std::string const &name = std::string());
     
 private:
     static Logger *globalLogger;  ///< The "global Logger" instance
@@ -348,23 +403,14 @@ private:
 
     std::mutex lock;  ///< Mutex to lock down the entire object
 
-    char *logFileName; ///< Name of log file. If nullptr, no file is used
+    std::string logFileName; ///< Name of log file. If empty, no file is used
+
+    Properties outputProps;  ///< Controls message formatting
+
+    unsigned int maxQueueLength;  ///< Maximum length of messages queue
     
     bool append;       ///< Append new content to old file?
-    bool coloured;     ///< Use coloured output?
     bool firstWrite;   ///< Is there already a header in the file?
-    
-    unsigned char maxQueueLength;  ///< Maximum length of messages queue
-
-    
-    /// Construct a string from current time
-    /**
-     * Build a string from the current time in the format
-     * <TT>"YYYY-MM-DDThh-mm-ss"</TT> (M=month, m=minute).
-     * @return The time string
-     */
-    static char *makeTimeString() noexcept;
-
     
     /// Combine inputs into message string
     /**
@@ -376,7 +422,8 @@ private:
      * - ERROR is only present when error==true
      * - <TT>\<file\></TT> and <TT>\<line\></TT> are omitted when file==nullptr
      * - <TT>\<function\></TT> is omitted if function==nullptr
-     * The output contains colour codes obtained from shellColourCode() of colour==true
+     *
+     * The output contains colour codes obtained from shellColourCode() if colour==true.
      *
      * @param file Name of the file this function is called from
      * @param line Line-number this function is called from
@@ -388,23 +435,15 @@ private:
      *
      * @return The constructed message
      */
-    std::string composeMessage(const char * const file, const unsigned int line,
-                               const char * const function, const char * const message,
-                               const bool error, const bool insertTime, const bool colour)
-        const noexcept;
+    std::string composeMessage(std::string const &file, unsigned int const line,
+                               std::string const &function, std::string const &message,
+                               bool const error, bool const toFile,
+                               Properties const * props = nullptr) const;
 };
 
-/**
- * \defgroup reportMacroGroup Report Macros
- * \brief Macros around Logger::report*
- *
- * Some useful convenient macros to insert file, line, and func arguments.
- */
-
 #ifndef repRaw
-/// Convenienece wrapper around Logger::reportRaw()
+/// Convenience wrapper around Logger::reportRaw()
 /**
- * \ingroup reportMacroGroup
  * Uses the global Logger to report a raw message.
  * Writes the message to cout if the global %Logger is not set.
  *
@@ -415,16 +454,15 @@ private:
     if (_logger_ != nullptr)                                        \
         _logger_->reportRaw(msg, STDOUT_FILENO);                    \
     else                                                            \
-        cout << msg << endl;                                        \
+        std::cout << msg << std::endl;                              \
     }
 #else
   #error "repRaw is already defined"
 #endif
 
 #ifndef repMsg
-/// Convenienece wrapper around Logger::reportMessage()
+/// Convenience wrapper around Logger::reportMessage()
 /**
- * \ingroup reportMacroGroup
  * Uses the global Logger to report a message and automatically supplies
  * the file, line, and function arguments.<BR>
  * Writes the message to cout if the global %Logger is not set.
@@ -436,18 +474,17 @@ private:
     if (_logger_ != nullptr)                                        \
         _logger_->reportMessage(__FILE__, __LINE__, __func__, msg); \
     else                                                            \
-        cout << "[" << __FILE__ << " | " << __LINE__ << " | "       \
-             << __func__ << "]: "                                   \
-             << msg << endl;                                        \
+        std::cout << "[" << __FILE__ << " | " << __LINE__ << " | "  \
+                  << __func__ << "]: "                              \
+                  << msg << std::endl;                              \
     }
 #else
   #error "repMsg is already defined"
 #endif
 
 #ifndef repErr
-/// Convenienece wrapper around Logger::reportError()
+/// Convenience wrapper around Logger::reportError()
 /**
- * \ingroup reportMacroGroup
  * Uses the global Logger to report an error and automatically supplies
  * the file, line, and function arguments.<BR>
  * Writes the message to cout if the global %Logger is not set.
@@ -459,18 +496,12 @@ private:
     if (_logger_ != nullptr)                                        \
         _logger_->reportError(__FILE__, __LINE__, __func__, msg);   \
     else                                                            \
-        cerr << "ERROR [" << __FILE__ << " | " << __LINE__ << " | " \
-             << __func__ << "]: "                                   \
-             << msg << endl;                                        \
+        std::cerr << "ERROR [" << __FILE__ << " | " << __LINE__     \
+                  << " | " << __func__ << "]: "                     \
+                  << msg << std::endl;                              \
     }
 #else
   #error "repErr is already defined"
 #endif
-
-
-class MegaLogger : public(Logger) {
-    
-};
-
 
 #endif  // ndef LOGGER_HPP
