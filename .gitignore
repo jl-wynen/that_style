@@ -1,0 +1,6 @@
+html
+*.hpp
+*.cpp
+*.html
+*.jpg
+*.svg
