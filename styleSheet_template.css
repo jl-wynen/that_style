@@ -514,13 +514,20 @@ table.memberdecls {
     background-color: inherit;
 }
 
-.mdescLeft, .mdescRight,
 .memItemLeft, .memItemRight,
 .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
-	background-color: #F9FAFC;
-	border: none;
-	margin: 4px;
-	padding: 1px 0 0 8px;
+    font-family: monospace;
+    background-color: #F9FAFC;
+    border: none;
+    margin: 4px;
+    padding: 1px 0 0 8px;
+}
+
+.mdescLeft, .mdescRight {
+    background-color: #F9FAFC;
+    border: none;
+    margin: 4px;
+    padding: 1px 0 0 8px;
 }
 
 .mdescLeft, .mdescRight {
@@ -608,9 +615,10 @@ table.memberdecls {
 }
 
 .memitem {
-	padding: 0;
-	margin-bottom: 10px;
-	margin-right: 5px;
+    font-family: monospace;
+    padding: 0;
+    margin-bottom: 10px;
+    margin-right: 5px;
     -webkit-transition: box-shadow 0.5s linear;
     -moz-transition: box-shadow 0.5s linear;
     -ms-transition: box-shadow 0.5s linear;
@@ -630,12 +638,13 @@ table.memberdecls {
 }
 
 .memname {
-        font-weight: 400;
-        margin-left: 6px;
+    font-family: monospace;
+    font-weight: 400;
+    margin-left: 6px;
 }
 
 .memname td {
-	vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 .memproto, dl.reflist dt {
@@ -687,42 +696,50 @@ dl.reflist dd {
 }
 
 .paramkey {
-	text-align: right;
+    text-align: right;
 }
 
 .paramtype {
-	white-space: nowrap;
+    font-family: monospace;
+    white-space: nowrap;
 }
 
 .paramname {
-	color: var(--secondary-color-dark);
-	white-space: nowrap;
+    color: black;
+    font-family: monospace;
+    white-space: nowrap;
 }
 .paramname em {
-	font-style: normal;
+    color: var(--secondary-color-dark);
+    font-style: normal;
 }
 .paramname code {
+    color: #404040;
     line-height: 14px;
 }
 
+
 .params, .retval, .exception, .tparams {
-        margin-left: 0px;
-        padding-left: 0px;
+    margin-left: 0px;
+    padding-left: 0px;
 }       
 
 .params .paramname, .retval .paramname {
-        font-weight: bold;
-        vertical-align: top;
+    color: var(--secondary-color-dark);
+    font-family: monospace;
+    font-weight: bold;
+    vertical-align: top;
 }
-        
+
 .params .paramtype {
-        font-style: italic;
-        vertical-align: top;
+    font-family: monospace;
+    font-style: italic;
+    vertical-align: top;
 }       
         
 .params .paramdir {
-        font-family: "courier new",courier,monospace;
-        vertical-align: top;
+    font-family: "courier new",courier,monospace;
+    vertical-align: top;
 }
 
 table.mlabels {
