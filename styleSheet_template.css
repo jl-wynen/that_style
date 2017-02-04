@@ -1156,18 +1156,18 @@ table.fieldtable {
 }
 
 
-div.summary
-{
-	float: right;
-	font-size: 8pt;
-	padding-right: 5px;
-	width: 50%;
-	text-align: right;
-}       
+div.summary {
+    -webkit-order: 2;
+    order: 2;
+    float: right;
+    font-size: 8pt;
+    padding-right: 5px;
+    width: 50%;
+    text-align: right;
+}
 
-div.summary a
-{
-	white-space: nowrap;
+div.summary a {
+    white-space: nowrap;
 }
 
 table.classindex
@@ -1182,34 +1182,38 @@ table.classindex
         padding: 0;
 }
 
-div.ingroups
-{
-	font-size: 8pt;
-	width: 50%;
-	text-align: left;
+div.ingroups {
+    font-size: 8pt;
+    width: 50%;
+    text-align: left;
 }
 
-div.ingroups a
-{
-	white-space: nowrap;
+div.ingroups a {
+    white-space: nowrap;
 }
 
-div.header
-{
+div.header {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
     background-image: none;
     background-color: white;
     color: black;
     margin: 0 0.5% 0.5% 0.5%;
+    align-items: center;
+    justify-content: center;
 }
 
-div.headertitle
-{
-	padding: 8px 5px 8px 10px;
+
+div.headertitle {
+    -webkit-order: 1;
+    order: 1;
+    margin-right: auto;
+    text-align: center;
 }
 
-dl
-{
-        padding: 0 0 0 10px;
+dl {
+    padding: 0 0 0 10px;
 }
 
 /* dl.note, dl.warning, dl.attention, dl.pre, dl.post, dl.invariant, dl.deprecated, dl.todo, dl.test, dl.bug */
