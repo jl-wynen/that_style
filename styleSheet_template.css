@@ -342,7 +342,8 @@ body {
 }
 
 #doc-content {
-    background-color: var(--background-color);
+    background-color: black;
+    background: url("hex_bg.png");
     color: white;
 }
 
@@ -1303,12 +1304,11 @@ dl.section dd {
 	padding: 0px;
 }
 
-#titlearea
-{
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-	border-bottom: 1px solid #5373B4;
+#titlearea {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    border-bottom: 1px solid #5373B4;
 }
 
 .image
