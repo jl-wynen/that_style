@@ -907,8 +907,14 @@ div.directory {
 }
 
 .ui-resizable-e {
-    background-image: url("splitbar.png");
-    background-repeat: repeat-y;
+    background-image: none;
+    background: #808080;
+    border-right: solid 1px #c0c0c0;
+    border-left: solid 1px black;
+}
+
+.ui-resizable-e:hover {
+    background: #606060;
 }
 
 
