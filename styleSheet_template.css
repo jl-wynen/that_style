@@ -3,6 +3,7 @@
  */
 
 /* Colors */
+/* #550826 for primary? or lighter? combination with blue links? */
 :root {
     --primary-color: #00549f;
     --primary-color-dark: #002546;
@@ -624,8 +625,17 @@ table.memberdecls {
     vertical-align: middle;
 }
 
+/* replace content of permalinks */
 .permalink a {
+    visibility: hidden;
+}
+.permalink a:after {
+    content: "§";
+    visibility: visible;
+    display: block;
+    position: absolute;
     color: black;
+    top: 20%;
 }
 
 .permalink a:visited {
