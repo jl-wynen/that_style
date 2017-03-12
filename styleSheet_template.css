@@ -535,8 +535,9 @@ hr.footer {
 /* @group Member Descriptions */
 
 table.memberdecls {
-	border-spacing: 0px;
-	padding: 0px;
+    width: 100%;
+    border-spacing: 0px;
+    padding: 0px;
     margin-top: 7px;
     background-color: white;
     box-shadow:         0 0 4px rgba(0,0,0,0.35), 0 0 8px rgba(0,0,0,0.2);
@@ -1026,58 +1027,58 @@ table.directory {
 /* @end */
 
 div.dynheader {
-        margin-top: 8px;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    margin-top: 8px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 address {
-	font-style: normal;
-	color: #2A3D61;
+    font-style: normal;
+    color: #2A3D61;
 }
 
 table.doxtable caption {
-	caption-side: top;
+    caption-side: top;
 }
 
 table.doxtable {
-	border-collapse:collapse;
-        margin-top: 4px;
-        margin-bottom: 4px;
+    border-collapse: collapse;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 table.doxtable td, table.doxtable th {
-	border: 1px solid #2D4068;
-	padding: 3px 7px 2px;
+    border: 1px solid #444444;
+    padding: 3px 7px 2px;
 }
 
 table.doxtable th {
-	background-color: #374F7F;
-	color: #FFFFFF;
-	font-size: 110%;
-	padding-bottom: 4px;
-	padding-top: 5px;
+    background-color: #444444;
+    color: #FFFFFF;
+    font-size: 110%;
+    padding-bottom: 4px;
+    padding-top: 5px;
 }
 
 table.fieldtable {
-        /*width: 100%;*/
-        margin-bottom: 10px;
-        border: 1px solid #A8B8D9;
-        border-spacing: 0px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-        -moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
-        -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    /*width: 100%;*/
+    margin-bottom: 10px;
+    border: 1px solid #A8B8D9;
+    border-spacing: 0px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
 }
 
 .fieldtable td, .fieldtable th {
-        padding: 3px 7px 2px;
+    padding: 3px 7px 2px;
 }
 
 .fieldtable td.fieldtype, .fieldtable td.fieldname {
@@ -1151,32 +1152,58 @@ table.fieldtable {
     padding: 0px;
 }
 
-/* first navelems */
-.navpath li {
-    list-style-type:none;
-    float:left;
-    padding-left:10px;
-    padding-right:15px;
+
+/* intermediate navelems */
+.navpath li:not(:first-child) {
+    list-style-type: none;
+    float: left;
+    padding-left: 18px;
+    padding-right: 10px;
+    color: black;
+    background-color: white;
+    background-image: url('nav_edge_inter.svg');
+    background-repeat: no-repeat;
+    background-position: left -1px;
+    background-size: auto 100%;
+}
+
+/* first navelem */
+.navpath li:first-child {
+    list-style-type: none;
+    float: left;
+    padding-left: 15px;
+    padding-right: 10px;
     color: black;
     background-color: white;
     background-image: none;
-    background-repeat:no-repeat;
-    background-position:right;
-    background-size: cover;
 }
 
 /* last navelem */
 .navpath li:nth-last-child(2) {
-	list-style-type:none;
-	float:left;
-	padding-left:10px;
-	padding-right:15px;
+    list-style-type: none;
+    float: left;
+    padding-left:10px;
+    padding-right:15px;
     color: white;
     background-color: var(--primary-color);
-	background-image:url('nav_edge.svg');
-	background-repeat:no-repeat;
-	background-position:right;
-    background-size: cover;
+    background-image: url('nav_edge_right.svg');
+    background-repeat: no-repeat;
+    background-position: right -1px;
+    background-size: auto 100%;
+
+}
+.navpath li:nth-last-child(2):not(:first-child) {
+    list-style-type: none;
+    float: left;
+    padding-left:15px;
+    padding-right:15px;
+    color: white;
+    background-color: var(--primary-color);
+    background-image: url('nav_edge_left.svg'), url('nav_edge_right.svg');
+    background-repeat: no-repeat;
+    background-position: -1px -1px, right -1px;
+    background-size: auto 100%;
+
 }
 
 .navpath li.navelem a {
