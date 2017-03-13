@@ -963,16 +963,14 @@ div.directory {
 }
 
 .ui-resizable-e {
-    background-image: none;
-    background: #808080;
+    background: #808080 url("splitbar_handle.svg") no-repeat center;
     border-right: solid 1px #c0c0c0;
     border-left: solid 1px black;
 }
 
 .ui-resizable-e:hover {
-    background: #606060;
+    background-color: #606060;
 }
-
 
 .icon {
     font-family: Arial, Helvetica;
