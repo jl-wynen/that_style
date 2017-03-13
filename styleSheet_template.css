@@ -957,11 +957,6 @@ div.directory {
     text-shadow: none;
 }
 
-#nav-sync {
-    visibility: hidden;
-    display: none;
-}
-
 .ui-resizable-e {
     background: #808080 url("splitbar_handle.svg") no-repeat center;
     border-right: solid 1px #c0c0c0;
