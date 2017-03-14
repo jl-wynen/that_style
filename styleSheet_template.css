@@ -1242,18 +1242,35 @@ table.fieldtable {
 }
 
 .navpath li.footer {
-    list-style-type:none;
-    float:right;
-    padding-left:10px;
-    padding-right:15px;
-    background-color: white;
-    background-image:none;
-    background-repeat:no-repeat;
-    background-position:right;
-    color:#364D7C;
+    list-style-type: none;
+    float: right;
+    padding-left: 0;
+    padding-right: 10px;
+    background-color: #d5d5d5;
+    background-image: none;
+    color: black;
     font-size: 8pt;
 }
 
+.navpath li.footer:before {
+    content: "";
+    width: 13px;
+    height: 30px;
+    display: inline-block;
+    float: left;
+    background-image: url("nav_edge.svg");
+    background-repeat: no-repeat;
+    background-position: right -1px;
+    background-size: auto 100%;
+
+    /* flip the element horizontally */
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
 
 div.summary {
     -webkit-order: 2;
