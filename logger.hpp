@@ -154,15 +154,7 @@ public:
     static Logger *getGlobalLogger() noexcept;
 
     
-    /// Set a (new) log file
-    /**
-     * Calls flush() before setting the file name if a log file was already specified.
-     * Also resets firstWrite to true, see prepareLogFile.
-     *
-     * @param fname Name of the log file
-     * @param app Append messages to existing log file or replace old file?
-     * @return Status of flush() if called, Status::OK otherwise.
-     */
+
     Status setLogFile(std::string const &fname, bool const app = true);
 
     /// Get the name of the log file

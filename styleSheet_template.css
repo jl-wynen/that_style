@@ -32,22 +32,23 @@ h1.groupheader {
 }
 
 h2.groupheader {
-	border-bottom: 1px solid #879ECB;
-	color: var(--primary-color-dark);
-	font-size: 200%;
-	font-weight: bold;
-	margin-top: 1.75em;
-	padding-top: 1em;
-	padding-bottom: 4px;
-	width: 100%;
+    border-bottom: 1px solid #555555;
+    color: var(--primary-color-dark);
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 1.75em;
+    padding-top: 1em;
+    padding-bottom: 4px;
+    width: 100%;
 }
 
 tr.heading h2 {
+    border-bottom: 1px solid #a5a5a5;
     font-size: 150%;
     margin-top: 6px;
     margin-bottom: 6px;
     padding-top: 3px;
-    padding-bottom: 3px;
+    padding-bottom: 7px;
 }
 
 h2.groupheader a {
@@ -557,6 +558,30 @@ table.memberdecls {
     background-color: white;
 }
 
+/* striped background for tables of members */
+.memberdecls tr[class^="memitem"]:nth-of-type(odd) {
+    background-color: #f6f6f6;
+}
+
+.memberdecls tr[class^="memitem"]:nth-of-type(odd) + tr[class^="memdesc"]  {
+    background-color: #f6f6f6;
+}
+
+/* all but last separator show a line */
+.memberdecls tr[class^="separator"]:not(:last-child) .memSeparator {
+    border-bottom: 1px solid #a5a5a5;
+    line-height: 1px;
+    margin: 0;
+    padding: 0;
+}
+
+.memberdecls tr[class^="separator"]:last-child .memSeparator {
+    border-bottom: none;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
 .memberdecls td, .fieldtable tr {
     background-color: inherit;
 }
@@ -580,13 +605,6 @@ table.memberdecls {
 .mdescLeft, .mdescRight {
 	padding: 0px 8px 4px 8px;
 	color: #555;
-}
-
-.memSeparator {
-        border-bottom: 1px solid #DEE4F0;
-        line-height: 1px;
-        margin: 0px;
-        padding: 0px;
 }
 
 .memItemLeft, .memTemplItemLeft {
@@ -838,58 +856,62 @@ span.mlabel {
 /* these are for tree view inside a (index) page */
 
 div.directory {
-        margin: 10px 0px;
-        border-top: 1px solid #9CAFD4;
-        border-bottom: 1px solid #9CAFD4;
-        width: 100%;
+    margin: 10px 0px;
+    border-top: 1px solid #9CAFD4;
+    border-bottom: 1px solid #9CAFD4;
+    width: 100%;
 }
 
 .directory table {
-        border-collapse:collapse;
+    border-collapse:collapse;
 }
 
 .directory td {
-        margin: 0px;
-        padding: 0px;
-	vertical-align: top;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
 }
 
 .directory td.entry {
-        white-space: nowrap;
-        padding-right: 6px;
-	padding-top: 3px;
+    white-space: nowrap;
+    padding-right: 6px;
+    padding-top: 3px;
 }
 
 .directory td.entry a {
-        outline:none;
+    outline:none;
 }
 
 .directory td.entry a img {
-        border: none;
+    border: none;
 }
 
 .directory td.desc {
-        width: 100%;
-        padding-left: 6px;
-	padding-right: 6px;
-	padding-top: 3px;
-	border-left: 1px solid rgba(0,0,0,0.05);
+    width: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+table.directory {
+    font: 400 14px Roboto,sans-serif;
 }
 
 .directory tr.even {
-	padding-left: 6px;
-	background-color: #F7F8FB;
+    padding-left: 0;
+    background-color: #f6f6f6;
 }
 
 .directory img {
-	vertical-align: -30%;
+    vertical-align: -30%;
 }
 
 .directory .levels {
-        white-space: nowrap;
-        width: 100%;
-        text-align: right;
-        font-size: 9pt;
+    white-space: nowrap;
+    width: 100%;
+    text-align: right;
+    font-size: 9pt;
 }
 
 .directory .levels span {
@@ -1019,10 +1041,6 @@ div.directory {
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;
-}
-
-table.directory {
-    font: 400 14px Roboto,sans-serif;
 }
 
 /* @end */
