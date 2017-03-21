@@ -558,18 +558,14 @@ table.memberdecls {
     background-color: white;
 }
 
-/* /\* striped background for tables of members *\/ */
-/* .memberdecls tr[class^="memitem"]:nth-of-type(odd) { */
-/*     background-color: #f6f6f6; */
-/* } */
-
-/* .memberdecls tr[class^="memitem"]:nth-of-type(odd) + tr[class^="memdesc"]  { */
-/*     background-color: #f6f6f6; */
-/* } */
+/* make the bg stripey */
+.memberdecls .odd {
+    background: #f6f6f6;
+}
 
 /* all but last separator show a line */
 .memberdecls tr[class^="separator"]:not(:last-child) .memSeparator {
-    border-bottom: 1px solid #a5a5a5;
+    border-bottom: 1px solid #c5c5c5;
     line-height: 1px;
     margin: 0;
     padding: 0;
