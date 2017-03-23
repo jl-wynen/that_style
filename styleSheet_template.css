@@ -3,12 +3,12 @@
  */
 
 /* TODO replace symbols for treeview (triangles) like paragraph sign */
-/* TODO resize handle: image with dots in the middle? */
 
 /* Colors */
 :root {
     --primary-color: #5f082b;
     --primary-color-dark: #2c0414;
+    --primary-color-light: #820a32;
     --secondary-color: #00549f;
     --secondary-color-dark: #002546;
     --background-color: #222222
@@ -558,7 +558,6 @@ table.memberdecls {
     background-color: white;
 }
 
-/* make the bg stripey */
 .memberdecls .odd {
     background: #f6f6f6;
 }
@@ -792,7 +791,6 @@ dl.reflist dd {
 dl.reflist dd p::before {
     font-size: 85%;
     content: "\25B6\00A0\00A0";
-    /* height: 100%; */
     display: inline-block;
 }
 
@@ -803,6 +801,7 @@ dl.reflist dd p::before {
 .paramtype {
     font-family: monospace;
     white-space: nowrap;
+    color: var(--secondary-color-dark);
 }
 
 .paramname {
@@ -811,8 +810,7 @@ dl.reflist dd p::before {
     white-space: nowrap;
 }
 .paramname em {
-    /* TODO colour? */
-    color: var(--secondary-color-dark);
+    color: var(--primary-color-light);
     font-style: normal;
 }
 .paramname code {
@@ -820,28 +818,49 @@ dl.reflist dd p::before {
     line-height: 14px;
 }
 
-
 .params, .retval, .exception, .tparams {
     margin-left: 0px;
     padding-left: 0px;
 }       
 
-.params .paramname, .retval .paramname {
-    color: var(--secondary-color-dark);
+.params dt, .tparams dt {
+    margin-bottom: 0.5em;
+}
+
+.params .paramname, .tparams .paramname, .retval .paramname {
+    color: var(--primary-color-light);
     font-family: monospace;
     font-weight: bold;
     vertical-align: top;
 }
 
-.params .paramtype {
+.params .paramtype, .tparams .paramtype {
     font-family: monospace;
     font-style: italic;
     vertical-align: top;
 }       
         
-.params .paramdir {
+.params .paramdir, .tparams .paramdir {
     font-family: "courier new",courier,monospace;
     vertical-align: top;
+}
+
+/* line over parameters docs */
+.params, .tparams {
+    border-collapse: collapse;
+}
+
+.params tr, .tparams tr {
+    box-shadow: 0 -2px 0 -1px #606060;
+}
+
+.params .paramname, .tparams .paramname {
+    border-top: 2px solid var(--primary-color);
+    padding-right: 5pt;
+}
+
+.params td, .tparams td {
+    padding-bottom: 1em;
 }
 
 table.mlabels {
