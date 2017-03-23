@@ -753,6 +753,14 @@ table.memberdecls {
     -moz-box-shadow:    none;
     -webkit-box-shadow: none;
     -o-box-shadow:      none;
+
+    /* allow movement of elements inside */
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
 }
 
 dl.reflist dt {
@@ -819,8 +827,9 @@ dl.reflist dd p::before {
 }
 
 .params, .retval, .exception, .tparams {
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: -0.25em;
 }       
 
 .params dt, .tparams dt {
@@ -895,7 +904,24 @@ span.mlabel {
     vertical-align: middle;
 }
 
+.memdoc .definition {
+    position: relative;
+    padding-top: 0.5em;
+    
+    /* move definition line to bottom of memdoc */
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    box-ordinal-group: 2;
+}
 
+.memdoc .definition::before {
+    content: "";
+    width: 33%;
+    height: 1px;
+    border-top: 1px solid black;
+    position: absolute;
+    top: 0;
+}
 
 /* @end */
 

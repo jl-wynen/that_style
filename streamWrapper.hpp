@@ -66,6 +66,8 @@ public:
      * Also creates a new instance of <TT>T</TT> and assigns it to the
      * new %StreamWrapper.
      *
+     * @tparam T Type of the istream.
+     * @tparam Args Template argument pack to pass to T's c'tor.
      * @param args Argument pack to be passed to the constructor of the <TT>istream</TT>.
      * @return The new %StreamWrapper instance
      */
