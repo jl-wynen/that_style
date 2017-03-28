@@ -105,12 +105,8 @@ p.endtd {
 
 /* @end */
 
-#main-menu {
-    background-image: none;
-}
-
 #top {
-    border-bottom: 1px solid #808080;
+    border-bottom: 1px solid #414141;
 }
 
 caption {
@@ -184,6 +180,80 @@ a.elRef, a.elRef:visited {
 }
                               
 /* @end */
+
+/* main menu */
+#main-menu {
+    background-image: none;
+    background: #414141;
+    padding: 0;
+}
+
+.sm-dox > li:not(:last-child) > a {
+    background-image: none;
+    text-shadow: none;
+    color: white;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 11pt;
+    text-transform: uppercase;
+}
+
+.sm-dox > li:not(:last-child) > a:hover,
+.sm-dox > li:not(:last-child) > a.highlighted {
+    background-color: var(--primary-color);
+}
+
+.sm-dox a span.sub-arrow {
+    /* this sets the color of the arrow somehow */
+    border-color: white transparent transparent;
+}
+
+.sm-dox ul {
+    border: none;
+    border-radius: 0 !important;
+    padding: 0;
+    background: #414141;
+    
+    -moz-box-shadow:    0 0 4px rgba(0,0,0,0.35), 0 0 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.35), 0 0 8px rgba(0,0,0,0.2);
+    -o-box-shadow:      0 0 4px rgba(0,0,0,0.35), 0 0 8px rgba(0,0,0,0.2);
+    box-shadow:         0 0 4px rgba(0,0,0,0.35), 0 0 8px rgba(0,0,0,0.2);
+}
+
+.sm-dox ul a {
+    background: inherit;
+    color: white;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 11pt;
+}
+
+.sm-dox ul a:hover {
+    background: var(--primary-color);
+    color: white;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 11pt;
+}
+
+.sm-dox ul a.highlighted {
+    background: var(--primary-color);
+    color: white;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 11pt;
+}
+
+.sm-dox ul a span.sub-arrow {
+    /* this sets the color of the arrow somehow */
+    border-color: white transparent transparent;
+}
+
+
+/* .sm-dox a.current{color:red} */
+/* .sm-dox a.disabled{color:blue} */
+
+/* end main menu */
 
 dl.el {
 	margin-left: -1cm;
@@ -467,10 +537,17 @@ input.search {
 }
 */
 
+.sm-dox > li:last-child {
+    margin-right: 10pt;
+}
+
 #MSearchBox {
-    border: solid 1px black;
+    border: 2px inset black;
     display: table;
     width: 300px;
+    height: 26px;
+    background: white;
+    margin-top: 6px;
 }
 
 #MSearchBox .left {
@@ -1502,7 +1579,7 @@ dl.section dd {
     padding: 0px;
     margin: 0px;
     width: 100%;
-    border-bottom: 1px solid #5373B4;
+    border-bottom: none;
 }
 
 .image
