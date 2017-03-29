@@ -106,7 +106,14 @@ p.endtd {
 /* @end */
 
 #top {
-    border-bottom: 1px solid #414141;
+    border: none;
+    position: relative;
+    z-index: 100;
+    
+    -moz-box-shadow:    0 0 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.3);
+    -o-box-shadow:      0 0 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.3);
+    box-shadow:         0 0 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.3);
 }
 
 caption {
