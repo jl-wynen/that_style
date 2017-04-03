@@ -1054,9 +1054,13 @@ span.mlabel {
 /* these are for tree view inside a (index) page */
 
 div.directory {
-    margin: 10px 0px;
-    border-top: 1px solid #9CAFD4;
-    border-bottom: 1px solid #9CAFD4;
+    border: none;
+}
+
+table.directory {
+    margin: 0 0 10px 0;
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
     width: 100%;
 }
 
@@ -1065,15 +1069,30 @@ div.directory {
 }
 
 .directory td {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 10px 0 5px 0;
+    vertical-align: middle;
+}
+
+table.directory td.entry {
+    white-space: normal;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-left: 28px;
+    text-indent: -25px;
+}
+
+/* overrides for file/class/... lists */
+.levels + .directory td {
+    margin: 0;
+    padding: 0;
     vertical-align: top;
 }
 
-.directory td.entry {
+.levels + table.directory td.entry {
     white-space: nowrap;
-    padding-right: 6px;
-    padding-top: 3px;
+    padding-left: 0;
+    text-indent: 0;
 }
 
 .directory td.entry a {
