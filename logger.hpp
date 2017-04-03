@@ -119,6 +119,17 @@ public:
      * instance is deleted.
      * @note Not thread safe
      *
+     * @warning watch out
+     * @attention look here
+     * @pre before exec
+     * @post after exec
+     * @invariant Stays the same
+     * @deprecated Don't use anymore
+     * @todo TODO
+     * @test Testing
+     * @bug A bug
+     *
+     *
      * @param p p Output properties passed to the constructor
      * @return Pointer to the global %Logger
      */
