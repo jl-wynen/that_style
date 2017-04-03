@@ -1628,7 +1628,7 @@ dl.section dd {
     margin-bottom: 6px;
 }
 
-.memdoc dl a.el {
+.memdoc dl dt a.el {
     font-weight: bold;
     color: black;
 }
