@@ -425,6 +425,8 @@ div.contents {
     color: black;
     background-color: transparent;
     padding: 0;
+
+    margin: 0 0.5% 0.5% 0.5%;
 }
 
 /* override for 'normal' mode */
@@ -433,6 +435,8 @@ div.header + div.contents {
     color: black;
     background-color: white;
     padding: 1%;
+
+    margin: 0 0.5% 0.5% 0.5%;
 }
 
 
@@ -869,6 +873,7 @@ table.memberdecls {
     box-shadow:         none;
 }
 
+
 .overload {
     font-family: "courier new",courier,monospace;
 	font-size: 65%;
@@ -904,23 +909,15 @@ table.memberdecls {
 /* overrides for docs on individual pages */
 
 .memtitle:nth-child(2) {
-    background-color: white;
-    color: black;
-    margin: 0;
-    margin-bottom: 0.5%;
-    width: 100%;
-    
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    
-    -moz-box-shadow:    none;
-    -webkit-box-shadow: none;
-    -o-box-shadow:      none;
-    box-shadow:         none;
+    width: 0;
+    height: 0;
+    display: none;
+    visibility: hidden;
 }
 
 .memitem:nth-child(3) {
     margin: 0;
+    margin-top: 0.5%;
     background-color: white;
     -moz-box-shadow:    none;
     -webkit-box-shadow: none;
@@ -936,23 +933,17 @@ table.memberdecls {
 
 .memitem:nth-child(3) .memproto::after {
     content: "";
-    width: 100%;
+    width: 99%;
     height: 1px;
     position: absolute;
     bottom: -10px;
-    left: 0;
-    
-    background-color: black;
-    background: -webkit-linear-gradient(to right, white 0%, black 25%, black 75%, white 100%);
-    background: -o-linear-gradient(to right, white 0%, black 25%, black 75%, white 100%);
-    background: -moz-linear-gradient(to right, white 0%, black 25%, black 75%, white 100%);
-    background: linear-gradient(to right, white 0%, black 25%, black 75%, white 100%);
+    left: 0.5%;
+    background: #666;
 }
 
 .memitem:nth-child(3) .memdoc {
     border: none;
     padding: 0;
-    /* margin: 0; */
 }
 
 .memitem:nth-child(3) table.memname {
@@ -1589,6 +1580,7 @@ div.summary {
     padding-right: 5px;
     width: 50%;
     text-align: right;
+    margin-right: 0.5%;
 }
 
 div.summary a {
@@ -1625,11 +1617,22 @@ div.header {
     background-image: none;
     background-color: white;
     color: black;
-    margin: 0.5% 0.5% 0.5% 0.5%;
+    margin: 0.5% 0.5% 0 0.5%;
     align-items: center;
     justify-content: center;
+    border-bottom: none;
+    position: relative;
 }
 
+div.header::after {
+    content: "";
+    height: 2px;
+    width: 99%;
+    position: absolute;
+    bottom: -5px;
+    left: 0.5%;
+    background: #666;
+}
 
 div.headertitle {
     -webkit-order: 1;
