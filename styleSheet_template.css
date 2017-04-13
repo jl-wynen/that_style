@@ -1335,9 +1335,9 @@ table.directory {
     width: 24px;
     height: 18px;
     margin-bottom: 4px;
-    background-image:url('doc.png');
-    background-position: 0px -4px;
-    background-repeat: repeat-y;
+    background-image:url('doc.svg');
+    background-position: 0;
+    background-repeat: no-repeat;
     vertical-align:top;
     display: inline-block;
 }
