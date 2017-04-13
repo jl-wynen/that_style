@@ -1313,9 +1313,9 @@ table.directory {
     width: 24px;
     height: 18px;
     margin-bottom: 4px;
-    background-image:url('folderopen.png');
-    background-position: 0px -4px;
-    background-repeat: repeat-y;
+    background-image:url('folderopen.svg');
+    background-position: 0;
+    background-repeat: no-repeat;
     vertical-align:top;
     display: inline-block;
 }
@@ -1324,9 +1324,9 @@ table.directory {
     width: 24px;
     height: 18px;
     margin-bottom: 4px;
-    background-image:url('folderclosed.png');
-    background-position: 0px -4px;
-    background-repeat: repeat-y;
+    background-image:url('folderclosed.svg');
+    background-position: 0;
+    background-repeat: no-repeat;
     vertical-align:top;
     display: inline-block;
 }
