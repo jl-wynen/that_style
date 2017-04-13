@@ -291,6 +291,20 @@ div.fragment {
     border-radius: 3px;
     overflow: auto;
     overflow-y: hidden;
+    position: relative;
+}
+
+div.fragment::before {
+    /* Put a continuous background for line number.
+     Might break for line numbers > 9999 */
+    content: "";
+    border-right: 3px solid #1d7567;
+    background-color: #a0a0a0;
+    width: 45px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
 }
 
 div.line {
@@ -298,12 +312,12 @@ div.line {
     font-size: 13px;
     min-height: 13px;
     line-height: 1.0;
-    white-space: nowrap;
     text-indent: -53px;
     padding-left: 53px;
     padding-bottom: 1px;
     padding-top: 1px;
     margin: 0px;
+    
     -webkit-transition-property: background-color;
     -webkit-transition-duration: 0s;
     -moz-transition-property: background-color;
@@ -334,19 +348,18 @@ div.line.glow {
 span.lineno {
     padding-right: 4px;
     text-align: right;
-    border-right: 3px solid #1d7567;
-    background-color: #a0a0a0;
     color: black;
     height: 100px;
     white-space: pre;
+
+    /* put above background */
+    background: none;
+    border: none;
+    position: relative;
+    z-index: 10;
 }
 
-span.lineno a {
-    background-color: inherit;
-    color: #1e595a;
-}
-
-span.lineno a:visited {
+span.lineno a, span.lineno a:visited {
     background-color: inherit;
     color: #1e595a;
 }
@@ -490,31 +503,32 @@ address.footer {
 }
 
 img.footer {
-	border: 0px;
-	vertical-align: middle;
+    border: 0px;
+    vertical-align: middle;
 }
 
 /* @group Code Colorization */
 
 a.code, a.code:visited {
-    color: #0075dc;
+    color: #2b81c8;
 }
 
 a.codeRef, a.codeRef:visited {
-    color: #0088ff;
+    color: #37a2ff;
 }
  
 span.keyword {
-    color: #9370db;
+    color: #f93f6e;
     font-weight: bold;
 }
 
 span.keywordtype {
-    color: #2fb497;
+    color: #e45f5f;
+    color:  #df7a1e;
 }
 
 span.keywordflow {
-    color: #9370db;
+    color: #f93f6e;
     font-weight: bold;
 }
 
@@ -528,11 +542,11 @@ span.preprocessor {
 }
 
 span.stringliteral {
-    color: #ee2c2c;
+    color: #ed3d3d;
 }
 
 span.charliteral {
-    color: #cd2626;
+    color: #bc3b3b;
 }
 
 blockquote {
@@ -1461,8 +1475,8 @@ table.fieldtable {
 .navpath ul {
     font-size: 11px;
     background-image: none;
-    height:30px;
-    line-height:30px;
+    height: 30px;
+    line-height: 30px;
     color: black;
     border: none;
     border-top: 1px solid #808080;
@@ -1522,22 +1536,22 @@ table.fieldtable {
     background-repeat: no-repeat;
     background-position: -1px -1px, right -1px;
     background-size: auto 100%;
-
 }
 
-.navpath li.navelem a {
-	height:32px;
-	display:block;
-	text-decoration: none;
-	outline: none;
-	color: inherit;
+.navpath li.navelem a, .navpath li.navelem b {
+    height:32px;
+    display:block;
+    text-decoration: none;
+    outline: none;
+    color: inherit;
     font-family: Roboto,sans-serif;
-	text-shadow: none;
-	text-decoration: none;
+    text-shadow: none;
+    text-decoration: none;
+    font-weight: normal;
 }
 
 .navpath li.navelem a:hover {
-	color: inherit;
+    color: inherit;
     text-decoration: underline;
 }
 
@@ -1560,7 +1574,7 @@ table.fieldtable {
     float: left;
     background-image: url("nav_edge_right.svg");
     background-repeat: no-repeat;
-    background-position: right -1px;
+    background-position: right 0;
     background-size: auto 100%;
 
     /* flip the element horizontally */
