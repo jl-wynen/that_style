@@ -434,24 +434,24 @@ body {
 
 /* this is for individual member pages */
 div.contents {
-    margin: 0.5%;
     color: black;
-    background-color: transparent;
+    background-color: white;
     padding: 0;
-
-    margin: 0 0.5% 0.5% 0.5%;
+    margin: 0.5% 0.5% 0.5% 0.5%;
 }
 
 /* override for 'normal' mode */
 div.header + div.contents {
-    margin: 0.5%;
-    color: black;
-    background-color: white;
     padding: 1%;
-
-    margin: 0 0.5% 0.5% 0.5%;
 }
 
+div.textblock {
+    padding: 1% 1% 0 1%;
+}
+
+div.textblock + ul {
+    padding-bottom: 1%;
+}
 
 td.indexkey {
 	background-color: #EBEFF6;
@@ -1899,48 +1899,49 @@ div.toc li.level4 {
 }
 
 #powerTip {
-	cursor: default;
-	white-space: nowrap;
-	background-color: white;
-	border: 1px solid gray;
-	border-radius: 4px 4px 4px 4px;
-	box-shadow: 1px 1px 7px gray;
-	display: none;
-	font-size: smaller;
-	max-width: 80%;
-	opacity: 0.9;
-	padding: 1ex 1em 1em;
-	position: absolute;
-	z-index: 2147483647;
+    cursor: default;
+    white-space: nowrap;
+    background-color: white;
+    border: 1px solid #323232;
+    border-radius: 0;
+    /* box-shadow: 1px 1px 7px gray; */
+    box-shadow: none;
+    display: none;
+    font-size: smaller;
+    max-width: 80%;
+    opacity: 0.9;
+    padding: 1ex 1em 1em;
+    position: absolute;
+    z-index: 2147483647;
 }
 
 #powerTip div.ttdoc {
-        color: grey;
-	font-style: italic;
+    color: grey;
+    font-style: italic;
 }
 
 #powerTip div.ttname a {
-        font-weight: bold;
+    font-weight: bold;
 }
 
 #powerTip div.ttname {
-        font-weight: bold;
+    font-weight: bold;
 }
 
 #powerTip div.ttdeci {
-        color: #006318;
+    color: #006318;
 }
 
 #powerTip div {
-        margin: 0px;
-        padding: 0px;
-        font: 12px/16px Roboto,sans-serif;
+    margin: 0px;
+    padding: 0px;
+    font: 12px/16px Roboto,sans-serif;
 }
 
 #powerTip:before, #powerTip:after {
-	content: "";
-	position: absolute;
-	margin: 0px;
+    content: "";
+    position: absolute;
+    margin: 0px;
 }
 
 #powerTip.n:after,  #powerTip.n:before,
@@ -2081,4 +2082,3 @@ div.toc li.level4 {
     background-color: white;
   }
 }
-
