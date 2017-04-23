@@ -6,6 +6,9 @@ This is just a basic description of the project, see other pages for more.
 ## Some more info
 
 Honestly, just ignore this text and the whole documentation in general!
+\f[
+    \int_\infty \text{d}x\, x^2 = \frac{x^3}{3} + C
+\f]
 
 # Even more headers
 And somehow some more unneeded text.

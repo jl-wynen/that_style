@@ -2,17 +2,15 @@
  * My own little style
  */
 
-/* TODO replace symbols for treeview (triangles) like paragraph sign */
+@import "compass/css3";
 
-/* Colors */
-:root {
-    --primary-color: #5f082b;
-    --primary-color-dark: #2c0414;
-    --primary-color-light: #820a32;
-    --secondary-color: #00549f;
-    --secondary-color-dark: #002546;
-    --background-color: #222222
-}
+// colours
+$primary-color:        #5f082b;
+$primary-color-dark:   #2c0414;
+$primary-color-light:  #820a32;
+$secondary-color:      #00549f;
+$secondary-color-dark: #002546;
+$background-color:     #222222;
 
 body, table, div, p, dl {
 	font: 400 14px/22px Roboto,sans-serif;
@@ -33,7 +31,7 @@ h1.groupheader {
 
 h2.groupheader {
     border-bottom: 1px solid #555555;
-    color: var(--primary-color-dark);
+    color: $primary-color-dark;
     font-size: 200%;
     font-weight: bold;
     margin-top: 1.75em;
@@ -60,17 +58,17 @@ h3.groupheader {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    -webkit-transition: color 0.5s linear;
-    -moz-transition:    color 0.5s linear;
-    -ms-transition:     color 0.5s linear;
-    -o-transition:      color 0.5s linear;
-    transition:         color 0.5s linear;
+    -webkit-transition: none;
+    -moz-transition:    none;
+    -ms-transition:     none;
+    -o-transition:      none;
+    transition:         none;
     margin-right: 15px;
 }
 
 h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
     text-shadow: none;
-    color: var(--primary-color);
+    color: $primary-color;
 }
 
 dt {
@@ -85,7 +83,7 @@ div.multicol {
 }
 
 p.startli, p.startdd {
-	margin-top: 2px;
+    margin-top: 2px;
 }
 
 p.starttd {
@@ -97,7 +95,7 @@ p.endli {
 }
 
 p.enddd {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 p.endtd {
@@ -149,7 +147,7 @@ div.navtab {
 /* @group Link Styling */
 
 a {
-    color: var(--secondary-color);
+    color: $secondary-color;
     font-weight: normal;
     text-decoration: none;
 }
@@ -180,7 +178,7 @@ a.qindexHL {
 
 a.el, a.el:visited {
     font-weight: normal;
-    color: var(--secondary-color);
+    color: $secondary-color;
 }
 
 a.elRef, a.elRef:visited {
@@ -209,7 +207,7 @@ a.elRef, a.elRef:visited {
 
 .sm-dox > li:not(:last-child) > a:hover,
 .sm-dox > li:not(:last-child) > a.highlighted {
-    background-color: var(--primary-color);
+    background-color: $primary-color;
 }
 
 .sm-dox a span.sub-arrow {
@@ -238,7 +236,7 @@ a.elRef, a.elRef:visited {
 }
 
 .sm-dox ul a:hover {
-    background: var(--primary-color);
+    background: $primary-color;
     color: white;
     font-weight: normal;
     letter-spacing: 1px;
@@ -246,7 +244,7 @@ a.elRef, a.elRef:visited {
 }
 
 .sm-dox ul a.highlighted {
-    background: var(--primary-color);
+    background: $primary-color;
     color: white;
     font-weight: normal;
     letter-spacing: 1px;
@@ -266,116 +264,6 @@ a.elRef, a.elRef:visited {
 
 dl.el {
 	margin-left: -1cm;
-}
-
-pre.fragment {
-    border: 1px solid #C4CFE5;
-    /* background-color: #FBFCFD; */
-    background-color: red;
-    padding: 4px 6px;
-    margin: 4px 8px 4px 2px;
-    overflow: auto;
-    word-wrap: break-word;
-    font-size:  9pt;
-    line-height: 125%;
-    font-family: monospace, fixed;
-    font-size: 105%;
-}
-
-div.fragment {
-    padding: 0px;
-    margin: 4px 8px 4px 2px;
-    color: #bebebe;
-    background-color: #323232;
-    border: 5px solid #e8e8e8;
-    border-radius: 3px;
-    overflow: auto;
-    overflow-y: hidden;
-    position: relative;
-}
-
-div.fragment::before {
-    /* Put a continuous background for line number.
-     Might break for line numbers > 9999 */
-    content: "";
-    border-right: 3px solid #1d7567;
-    background-color: #a0a0a0;
-    width: 45px;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    z-index: 1;
-}
-
-div.line {
-    font-family: monospace, fixed;
-    font-size: 13px;
-    min-height: 13px;
-    line-height: 1.0;
-    text-indent: -53px;
-    padding-left: 53px;
-    padding-bottom: 1px;
-    padding-top: 1px;
-    margin: 0px;
-    
-    -webkit-transition-property: background-color;
-    -webkit-transition-duration: 0s;
-    -moz-transition-property: background-color;
-    -moz-transition-duration: 0s;
-    -ms-transition-property: background-color;
-    -ms-transition-duration: 0s;
-    -o-transition-property: background-color;
-    -o-transition-duration: 0s;
-    transition-property: background-color;
-    transition-duration: 0s;
-}
-
-div.line:hover {
-    background-color: #1a1a1a;
-}
-
-div.line::after {
-    /* insert linefeed */
-    content:"\000A";
-    white-space: pre;
-}
-
-div.line.glow {
-    background-color: cyan;
-    box-shadow: 0 0 10px cyan;
-}
-
-span.lineno {
-    padding-right: 4px;
-    text-align: right;
-    color: black;
-    height: 100px;
-    white-space: pre;
-
-    /* put above background */
-    background: none;
-    border: none;
-    position: relative;
-    z-index: 10;
-}
-
-span.lineno a, span.lineno a:visited {
-    background-color: inherit;
-    color: #1e595a;
-}
-
-span.lineno a:hover {
-    background-color: #C8C8C8;
-    text-decoration: none;
-}
-
-.lineno {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 div.ah, span.ah {
@@ -437,12 +325,13 @@ div.contents {
     color: black;
     background-color: white;
     padding: 0;
-    margin: 0.5% 0.5% 0.5% 0.5%;
+    margin: 5pt 5pt 5pt 5pt;
 }
 
 /* override for 'normal' mode */
 div.header + div.contents {
     padding: 1%;
+    margin: 0 5pt 5pt 5pt;
 }
 
 div.textblock {
@@ -507,56 +396,9 @@ img.footer {
     vertical-align: middle;
 }
 
-/* @group Code Colorization */
+@import "fragment_base";
+@import "fragment_compass";
 
-a.code, a.code:visited {
-    color: #2b81c8;
-}
-
-a.codeRef, a.codeRef:visited {
-    color: #37a2ff;
-}
- 
-span.keyword {
-    color: #f93f6e;
-    font-weight: bold;
-}
-
-span.keywordtype {
-    color: #e45f5f;
-    color:  #df7a1e;
-}
-
-span.keywordflow {
-    color: #f93f6e;
-    font-weight: bold;
-}
-
-span.comment {
-    color: #afeeee;
-    font-style: oblique;
-}
-
-span.preprocessor {
-    color: #4eee94;
-}
-
-span.stringliteral {
-    color: #ed3d3d;
-}
-
-span.charliteral {
-    color: #bc3b3b;
-}
-
-blockquote {
-    background-color: #F7F8FB;
-    border-left: 2px solid #9CAFD4;
-    margin: 0 24px 0 4px;
-    padding: 0 12px 0 16px;
-}
-
-/* @end */
 
 
 /* .search { */
@@ -654,7 +496,7 @@ a.SelectItem {
 }
 
 a.SelectItem:hover {
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     color: white;
 }
 
@@ -786,7 +628,7 @@ table.memberdecls {
     background-color: #f6f6f6;
     line-height: 1.25;
     font-weight: bold;
-    color: var(--primary-color);
+    color: $primary-color;
     float: left;
     z-index: 0;
     position: relative;
@@ -895,7 +737,7 @@ table.memberdecls {
 
 .memdoc, dl.reflist dd {
     border: none;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid $primary-color;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
@@ -995,7 +837,7 @@ dl.reflist dt::after {
 }
 
 dl.reflist dd {
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid $primary-color;
     padding: 2px 1% 2px 1%;
     margin: 8px 8px 24px 8px;
     outline: 8px solid #f6f6f6;
@@ -1009,6 +851,12 @@ dl.reflist dd p::before {
     font-size: 85%;
     content: "\25B6\00A0\00A0";
     display: inline-block;
+    width: 12pt;
+}
+
+dl.reflist dd p {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .paramkey {
@@ -1018,7 +866,7 @@ dl.reflist dd p::before {
 .paramtype {
     font-family: monospace;
     white-space: nowrap;
-    color: var(--secondary-color-dark);
+    color:$secondary-color-dark;
 }
 
 .paramname {
@@ -1027,7 +875,7 @@ dl.reflist dd p::before {
     white-space: nowrap;
 }
 .paramname em {
-    color: var(--primary-color-light);
+    color: $primary-color-light;
     font-style: normal;
 }
 .paramname code {
@@ -1046,7 +894,7 @@ dl.reflist dd p::before {
 }
 
 .params .paramname, .tparams .paramname, .retval .paramname {
-    color: var(--primary-color-light);
+    color: $primary-color-light;
     font-family: monospace;
     font-weight: bold;
     vertical-align: top;
@@ -1076,7 +924,7 @@ dl.reflist dd p::before {
 }
 
 .params .paramname, .tparams .paramname {
-    border-top: 2px solid var(--primary-color);
+    border-top: 2px solid $primary-color;
     padding-right: 5pt;
 }
 
@@ -1225,7 +1073,7 @@ table.directory {
     cursor: pointer;
     padding-left: 2px;
     padding-right: 2px;
-    color: var(--secondary-color);
+    color: $secondary-color;
 }
 
 .directory .levels span:hover {
@@ -1233,7 +1081,7 @@ table.directory {
 }
 
 .arrow {
-    color: var(--primary-color);
+    color: $primary-color;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -1278,14 +1126,14 @@ table.directory {
 
 #nav-tree .selected {
     background-image: none;
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     color: white;
     text-shadow: none;
 }
 
 #nav-tree .selected:hover {
     background-image: none;
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     color: white;
     text-shadow: none;
 }
@@ -1518,7 +1366,7 @@ table.fieldtable {
     padding-left:10px;
     padding-right:15px;
     color: white;
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     background-image: url('nav_edge_right.svg');
     background-repeat: no-repeat;
     background-position: right -1px;
@@ -1531,7 +1379,7 @@ table.fieldtable {
     padding-left:15px;
     padding-right:15px;
     color: white;
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     background-image: url('nav_edge_left.svg'), url('nav_edge_right.svg');
     background-repeat: no-repeat;
     background-position: -1px -1px, right -1px;
@@ -1631,7 +1479,7 @@ div.header {
     background-image: none;
     background-color: white;
     color: black;
-    margin: 0.5% 0.5% 0 0.5%;
+    margin: 5pt 5pt 0 5pt;
     align-items: center;
     justify-content: center;
     border-bottom: none;

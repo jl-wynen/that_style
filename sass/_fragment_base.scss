@@ -1,0 +1,98 @@
+/*
+ Basic styling for fragments shared by all themes.
+*/
+
+// TODO useless?
+// pre.fragment {
+//     border: 1px solid #C4CFE5;
+//     background-color: #FBFCFD;
+//     padding: 4px 6px;
+//     margin: 4px 8px 4px 2px;
+//     overflow: auto;
+//     word-wrap: break-word;
+//     font-size:  9pt;
+//     line-height: 125%;
+//     font-family: monospace, fixed;
+//     font-size: 105%;
+// }
+
+div.fragment {
+    padding: 0px;
+    margin: 4px 8px 4px 2px;
+    color: #bebebe;
+    background-color: #323232;
+    border: 5px solid #e8e8e8;
+    border-radius: 3px;
+    overflow: auto;
+    overflow-y: hidden;
+    position: relative;
+
+    /* Put a continuous background for line number.
+     Might break for line numbers > 9999 */
+    &::before {
+        content: "";
+        border-right: 3px solid #1d7567;
+        background-color: #a0a0a0;
+        width: 45px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+    }
+}
+
+div.line {
+    font-family: monospace, fixed;
+    font-size: 13px;
+    min-height: 13px;
+    line-height: 1.0;
+    text-indent: -53px;
+    padding: 1px 0 1px 53px;
+    margin: 0px;
+
+    @include transition-property(background-color);
+    @include transition-duration(0s);
+
+    &:hover {
+        background-color: #1a1a1a;
+    }
+
+    &::after {
+        // insert linefeed
+        content:"\000A";
+        white-space: pre;
+    }
+}
+
+span.lineno {
+    padding-right: 4px;
+    text-align: right;
+    color: black;
+    height: 100px;
+    white-space: pre;
+
+    /* put above background */
+    background: none;
+    border: none;
+    position: relative;
+    z-index: 10;
+}
+
+span.lineno a, span.lineno a:visited {
+    background-color: inherit;
+    color: #1e595a;
+}
+
+span.lineno a:hover {
+    background-color: #C8C8C8;
+    text-decoration: none;
+}
+
+.lineno {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
