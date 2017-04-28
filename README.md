@@ -1,4 +1,7 @@
-# Super cool test project
+@tableofcontents
+
+
+# Super cool test project # {#cool}
 
 This is just a basic description of the project, see other pages for more.
 *This is **really** just for testing!*
@@ -10,7 +13,7 @@ Honestly, just ignore this text and the whole documentation in general!
     \int_\infty \text{d}x\, x^2 = \frac{x^3}{3} + C
 \f]
 
-# Even more headers
+# Even more headers # {#even_more}
 And somehow some more unneeded text.
 
 \section sec_test A test section

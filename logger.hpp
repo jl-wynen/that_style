@@ -28,7 +28,7 @@
 /// Class to print output to terminal and file
 /**
  * This class systematically handles text messages. Messages can be printed to a standard
- * stream, written into a log file, or both.
+ * stream, written into a log file, or both. \cite Hale
  *
  * Three types of messages are supported:
  * - Simple, or "raw", strings are printed unchanged
