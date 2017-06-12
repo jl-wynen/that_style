@@ -20,6 +20,8 @@ div.line:hover {
 
 span.lineno {
     color: black;
+    background-color: #a0a0a0;
+    border-right: 3px solid #1d7567;
 }
 
 span.lineno a, span.lineno a:visited {

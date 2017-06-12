@@ -37,6 +37,8 @@ div.line:hover {
 
 span.lineno {
     color: $sol-base1;
+    background-color: $sol-base2;
+    border-right: none;
 }
 
 span.lineno a, span.lineno a:visited {

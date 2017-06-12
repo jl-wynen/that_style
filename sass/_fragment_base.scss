@@ -1,14 +1,14 @@
-// /*
-//  Basic styling for fragments shared by all themes.
-// */
+/*
+ Basic styling for fragments shared by all themes.
+*/
 
 div.fragment {
     padding: 0;
     margin: 4px 8px 4px 2px;
     color: #bebebe;
     background-color: #323232;
-    border: 5px solid #e8e8e8;
-    border-radius: 3px;
+    border: 3px solid #e8e8e8;
+    border-radius: 2px;
     overflow-y: hidden;
     overflow-x: auto;
     position: relative;

@@ -12,7 +12,6 @@ div.fragment {
 
 div.fragment::before {
     background-color: #1a1a1a;
-    // border-right: 3px solid #1d7567;
     border-right: 1px solid #3e3e3e;
 }
 
@@ -22,6 +21,8 @@ div.line:hover {
 
 span.lineno {
     color: #969696;
+    background-color: #1a1a1a;
+    border-right: 1px solid #3e3e3e;
 }
 
 span.lineno a, span.lineno a:visited {
