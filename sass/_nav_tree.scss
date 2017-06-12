@@ -3,69 +3,70 @@
  */
 
 .arrow {
-    color: $primary-color;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    color:black;
     cursor: pointer;
     font-size: 80%;
     display: inline-block;
     width: 16px;
     height: 22px;
     margin-left: 4px;
-}
 
-.arrow:hover {
-    color: black;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    &:hover {
+        color: black;
+    }
 }
 
 #selected .arrow {
     color: white;
-}
-
-#selected .arrow:hover {
-    color: #d2d2d2;
+    
+    &:hover {
+        color: #d2d2d2;
+    }
 }
 
 #nav-tree {
     background-image: none;
     background-color: white;
-}
+    
+    .item {
+        margin: 0;
+        
+        &:hover {
+            background-color: #d2d2d2;
+        }
+    }
 
-#nav-tree .item {
-    margin: 0;
-}
-
-#nav-tree a {
-    color: black;
-}
-
-#nav-tree .item:hover {
-    background-color: #d2d2d2;
-}
-
-#nav-tree .selected {
-    background-image: none;
-    background-color: $primary-color;
-    color: white;
-    text-shadow: none;
-}
-
-#nav-tree .selected:hover {
-    background-image: none;
-    background-color: $primary-color;
-    color: white;
-    text-shadow: none;
+    .selected {
+        background-image: none;
+        background-color: $primary-color;
+        color: white;
+        text-shadow: none;
+        
+        &:hover {
+            background-image: none;
+            background-color: $primary-color;
+            color: white;
+            text-shadow: none;
+        }
+    }
+    
+    a {
+        color: black;
+    }
 }
 
 .ui-resizable-e {
     background: #808080 url("splitbar_handle.svg") no-repeat center;
     border-right: solid 1px #c0c0c0;
     border-left: solid 1px black;
-}
-
-.ui-resizable-e:hover {
-    background-color: #606060;
+    
+    &:hover {
+        background-color: #606060;
+    }
 }
