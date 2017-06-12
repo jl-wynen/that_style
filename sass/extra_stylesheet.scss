@@ -231,8 +231,7 @@ body {
 }
 
 #doc-content {
-    background-color: black;
-    background: url("hex_bg.png");
+    background-color: #111;
     color: $background-color;
 }
 
@@ -246,12 +245,12 @@ div.contents {
 
 // override for 'normal' mode
 div.header + div.contents {
-    padding: 1%;
+    padding: 1ex;
     margin: 0 5pt 5pt 5pt;
 }
 
 div.textblock {
-    padding: 1% 1% 0 1%;
+    padding: 1ex 1ex 0 1ex;
 }
 
 div.textblock + ul {
@@ -750,112 +749,94 @@ span.mlabel {
     -webkit-box-ordinal-group: 2;
     -moz-box-ordinal-group: 2;
     box-ordinal-group: 2;
+
+    // border above
+    &::before {
+        content: "";
+        width: 33%;
+        height: 1px;
+        border-top: 1px solid black;
+        position: absolute;
+        top: 0;
+    }
 }
 
-.memdoc .definition::before {
-    content: "";
-    width: 33%;
-    height: 1px;
-    border-top: 1px solid black;
-    position: absolute;
-    top: 0;
-}
 
 /* @end */
 
-/* these are for tree view inside a (index) page */
 
-div.directory {
-    border: none;
-}
-
+// list of all members and class / file / ... lists
 table.directory {
-    margin: 0 0 10px 0;
     border-top: 1px solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
-    width: 100%;
-}
-
-.directory table {
     border-collapse:collapse;
-}
-
-.directory td {
-    margin: 0;
-    padding: 10px 0 5px 0;
-    vertical-align: middle;
-}
-
-table.directory td.entry {
-    white-space: normal;
-    padding-right: 6px;
-    padding-top: 3px;
-    padding-left: 28px;
-    text-indent: -25px;
-}
-
-/* overrides for file/class/... lists */
-.levels + .directory td {
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-}
-
-.levels + table.directory td.entry {
-    white-space: nowrap;
-    padding-left: 0;
-    text-indent: 0;
-}
-
-.directory td.entry a {
-    outline:none;
-}
-
-.directory td.entry a img {
-    border: none;
-}
-
-.directory td.entry .arrow {
-    color: black;
-}
-
-.directory td.desc {
     width: 100%;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-top: 3px;
-    border-left: 1px solid rgba(0,0,0,0.05);
-}
-
-table.directory {
     font: 400 14px Roboto,sans-serif;
+    
+    tr {
+        // overwrite doxygen weirdness
+        background-color: white !important;
+    
+        &.even {
+            background-color: #f6f6f6 !important;
+        }
+
+        &:hover {
+            background-color: #e6e6e6 !important;
+        }
+    }
+
+    td.entry {
+        padding: 1.5pt 3pt 1.5pt 3pt;
+        white-space: normal;
+    }
 }
 
-.directory tr.even {
-    padding-left: 0;
-    background-color: #f6f6f6;
+// class / file / ... lists specific
+div.directory {
+    border: none;
+    
+    table.directory {
+        tr {
+            // this makes all lines the same height
+            line-height: 17pt;
+        }
+        
+        td {
+            margin: 0;
+            padding: 0.5pt 6pt 0.5pt 0;
+            vertical-align: middle;
+
+            &.entry {
+                white-space: nowrap;
+            }
+            
+            &.desc {
+                width: 100%;
+                padding-left: 6pt;
+                border-left: 1px solid rgba(0,0,0,0.05);
+            }
+        }
+    }
 }
 
-.directory img {
-    vertical-align: -30%;
-}
-
+// "detail level" at the top
 .directory .levels {
     white-space: nowrap;
     width: 100%;
     text-align: right;
     font-size: 9pt;
-}
 
-.directory .levels span {
-    cursor: pointer;
-    padding-left: 2px;
-    padding-right: 2px;
-    color: $secondary-color;
-}
+    span {
+        cursor: pointer;
+        padding-left: 2px;
+        padding-right: 2px;
+        color: $secondary-color;
 
-.directory .levels span:hover {
-    text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 @import "nav_tree";
@@ -1069,6 +1050,7 @@ div.header {
     background-color: $background-color;
     color: black;
     margin: 5pt 5pt 0 5pt;
+    padding: 0 1ex 0 1ex;
     align-items: center;
     justify-content: center;
     border-bottom: none;
@@ -1093,7 +1075,7 @@ div.headertitle {
 }
 
 dl {
-    padding: 0 0 0 10px;
+    padding: 0;
 }
 
 dl.section {
