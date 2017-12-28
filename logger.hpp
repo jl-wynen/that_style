@@ -91,7 +91,9 @@ public:
     
     /// Construct without assigning a log file
     /**
-     * @param p Output properties to use for this instance. Uses defaults if not specified.
+     * @param p Output properties to use for this instance. Uses defaults if not specified.<BR>
+     *          Second line oO<BR>
+     *          Third one even!
      * @see Logger::getDefaultProperties()
      */
     Logger(Properties const &p = Logger::getDefaultProperties());

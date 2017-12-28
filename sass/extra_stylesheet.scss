@@ -2,8 +2,6 @@
  * My own little style
  */
 
-// TODO check multi line descriptions for parameters, exceptions, etc.
-
 @import "mixins";
 
 // colors
@@ -18,8 +16,6 @@ $background-color-dark: #414141;
 body, table, div, p, dl {
 	font: 400 14px/22px Roboto,sans-serif;
 }
-
-/* @group Heading Levels */
 
 h1.groupheader {
 	font-size: 150%;
@@ -101,8 +97,6 @@ p.endtd {
 	margin-bottom: 2px;
 }
 
-/* @end */
-
 #top {
     border: none;
     position: relative;
@@ -138,8 +132,6 @@ div.qindex, div.navpath {
 div.navtab {
 	margin-right: 15px;
 }
-
-/* @group Link Styling */
 
 a, a:visited {
     color: $secondary-color;
@@ -180,9 +172,6 @@ a.elRef, a.elRef:visited {
     font-family: monospace;
     color: #006bc8;
 }
-                              
-/* @end */
-
 
 @import "menu_bar";
 
@@ -265,55 +254,6 @@ div.textblock + ul {
     padding-bottom: 1%;
 }
 
-// td.indexkey {
-// 	background-color: #EBEFF6;
-// 	font-weight: bold;
-// 	border: 1px solid #C4CFE5;
-// 	margin: 2px 0px 2px 0;
-// 	padding: 2px 10px;
-//         white-space: nowrap;
-//         vertical-align: top;
-// }
-
-// td.indexvalue {
-// 	background-color: #EBEFF6;
-// 	border: 1px solid #C4CFE5;
-// 	padding: 2px 10px;
-// 	margin: 2px 0px;
-// }
-
-// tr.memlist {
-// 	background-color: #EEF1F7;
-// }
-
-// p.formulaDsp {
-// 	text-align: center;
-// }
-
-// img.formulaDsp {
-	
-// }
-
-// img.formulaInl {
-// 	vertical-align: middle;
-// }
-
-// div.center {
-// 	text-align: center;
-//         margin-top: 0px;
-//         margin-bottom: 0px;
-//         padding: 0px;
-// }
-
-// div.center img {
-// 	border: 0px;
-// }
-
-// address.footer {
-// 	text-align: right;
-// 	padding-right: 12px;
-// }
-
 img.footer {
     border: 0px;
     vertical-align: middle;
@@ -323,34 +263,6 @@ img.footer {
 @import "fragment_compass";
 
 @import "search";
-
-
-// td.tiny {
-// 	font-size: 75%;
-// }
-
-// .dirtab {
-// 	padding: 4px;
-// 	border-collapse: collapse;
-// 	border: 1px solid #A3B4D7;
-// }
-
-// th.dirtab {
-// 	background: #EBEFF6;
-// 	font-weight: bold;
-// }
-
-// hr {
-// 	height: 0px;
-// 	border: none;
-// 	border-top: 1px solid #4A6AAA;
-// }
-
-// hr.footer {
-// 	height: 1px;
-// }
-
-/* @group Member Descriptions */
 
 table.memberdecls {
     width: 100%;
@@ -422,10 +334,6 @@ table.memberdecls {
         white-space: nowrap;
 	font-size: 80%;
 }
-
-/* @end */
-
-/* @group Member Details */
 
 /* Styles for detailed member documentation */
 
@@ -764,8 +672,6 @@ span.mlabel {
 }
 
 
-/* @end */
-
 
 // list of all members and class / file / ... lists
 table.directory {
@@ -899,8 +805,6 @@ div.directory {
     display: inline-block;
 }
 
-/* @end */
-
 div.dynheader {
     margin-top: 8px;
     -webkit-touch-callout: none;
@@ -938,71 +842,6 @@ table.doxtable th {
     padding-bottom: 4px;
     padding-top: 5px;
 }
-
-// table.fieldtable {
-//     /*width: 100%;*/
-//     margin-bottom: 10px;
-//     border: 1px solid #A8B8D9;
-//     border-spacing: 0px;
-//     -moz-border-radius: 4px;
-//     -webkit-border-radius: 4px;
-//     border-radius: 4px;
-//     -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-//     -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-//     -o-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-//     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-// }
-
-// .fieldtable td, .fieldtable th {
-//     padding: 3px 7px 2px;
-// }
-
-// .fieldtable td.fieldtype, .fieldtable td.fieldname {
-//         white-space: nowrap;
-//         border-right: 1px solid #A8B8D9;
-//         border-bottom: 1px solid #A8B8D9;
-//         vertical-align: top;
-// }
-
-// .fieldtable td.fieldname {
-//         padding-top: 3px;
-// }
-
-// .fieldtable td.fielddoc {
-//         border-bottom: 1px solid #A8B8D9;
-//         /*width: 100%;*/
-// }
-
-// .fieldtable td.fielddoc p:first-child {
-//         margin-top: 0px;
-// }       
-        
-// .fieldtable td.fielddoc p:last-child {
-//         margin-bottom: 2px;
-// }
-
-// .fieldtable tr:last-child td {
-//         border-bottom: none;
-// }
-
-// .fieldtable th {
-//         background-image:url('nav_f.png');
-//         background-repeat:repeat-x;
-//         background-color: #E2E8F2;
-//         font-size: 90%;
-//         color: #253555;
-//         padding-bottom: 4px;
-//         padding-top: 5px;
-//         text-align:left;
-//         font-weight: 400;
-//         -moz-border-radius-topleft: 4px;
-//         -moz-border-radius-topright: 4px;
-//         -webkit-border-top-left-radius: 4px;
-//         -webkit-border-top-right-radius: 4px;
-//         border-top-left-radius: 4px;
-//         border-top-right-radius: 4px;
-//         border-bottom: 1px solid #A8B8D9;
-// }
 
 @import "navpath";
 
@@ -1356,126 +1195,6 @@ div.toc {
         margin: 0px;
     }
 }
-
-// unchanged:
-// #powerTip.n:after,  #powerTip.n:before,
-// #powerTip.s:after,  #powerTip.s:before,
-// #powerTip.w:after,  #powerTip.w:before,
-// #powerTip.e:after,  #powerTip.e:before,
-// #powerTip.ne:after, #powerTip.ne:before,
-// #powerTip.se:after, #powerTip.se:before,
-// #powerTip.nw:after, #powerTip.nw:before,
-// #powerTip.sw:after, #powerTip.sw:before {
-// 	border: solid transparent;
-// 	content: " ";
-// 	height: 0;
-// 	width: 0;
-// 	position: absolute;
-// }
-
-// #powerTip.n:after,  #powerTip.s:after,
-// #powerTip.w:after,  #powerTip.e:after,
-// #powerTip.nw:after, #powerTip.ne:after,
-// #powerTip.sw:after, #powerTip.se:after {
-// 	border-color: rgba(255, 255, 255, 0);
-// }
-
-// #powerTip.n:before,  #powerTip.s:before,
-// #powerTip.w:before,  #powerTip.e:before,
-// #powerTip.nw:before, #powerTip.ne:before,
-// #powerTip.sw:before, #powerTip.se:before {
-// 	border-color: rgba(128, 128, 128, 0);
-// }
-
-// #powerTip.n:after,  #powerTip.n:before,
-// #powerTip.ne:after, #powerTip.ne:before,
-// #powerTip.nw:after, #powerTip.nw:before {
-// 	top: 100%;
-// }
-
-// #powerTip.n:after, #powerTip.ne:after, #powerTip.nw:after {
-// 	border-top-color: #ffffff;
-// 	border-width: 10px;
-// 	margin: 0px -10px;
-// }
-// #powerTip.n:before {
-// 	border-top-color: #808080;
-// 	border-width: 11px;
-// 	margin: 0px -11px;
-// }
-// #powerTip.n:after, #powerTip.n:before {
-// 	left: 50%;
-// }
-
-// #powerTip.nw:after, #powerTip.nw:before {
-// 	right: 14px;
-// }
-
-// #powerTip.ne:after, #powerTip.ne:before {
-// 	left: 14px;
-// }
-
-// #powerTip.s:after,  #powerTip.s:before,
-// #powerTip.se:after, #powerTip.se:before,
-// #powerTip.sw:after, #powerTip.sw:before {
-// 	bottom: 100%;
-// }
-
-// #powerTip.s:after, #powerTip.se:after, #powerTip.sw:after {
-// 	border-bottom-color: #ffffff;
-// 	border-width: 10px;
-// 	margin: 0px -10px;
-// }
-
-// #powerTip.s:before, #powerTip.se:before, #powerTip.sw:before {
-// 	border-bottom-color: #808080;
-// 	border-width: 11px;
-// 	margin: 0px -11px;
-// }
-
-// #powerTip.s:after, #powerTip.s:before {
-// 	left: 50%;
-// }
-
-// #powerTip.sw:after, #powerTip.sw:before {
-// 	right: 14px;
-// }
-
-// #powerTip.se:after, #powerTip.se:before {
-// 	left: 14px;
-// }
-
-// #powerTip.e:after, #powerTip.e:before {
-// 	left: 100%;
-// }
-// #powerTip.e:after {
-// 	border-left-color: #ffffff;
-// 	border-width: 10px;
-// 	top: 50%;
-// 	margin-top: -10px;
-// }
-// #powerTip.e:before {
-// 	border-left-color: #808080;
-// 	border-width: 11px;
-// 	top: 50%;
-// 	margin-top: -11px;
-// }
-
-// #powerTip.w:after, #powerTip.w:before {
-// 	right: 100%;
-// }
-// #powerTip.w:after {
-// 	border-right-color: #ffffff;
-// 	border-width: 10px;
-// 	top: 50%;
-// 	margin-top: -10px;
-// }
-// #powerTip.w:before {
-// 	border-right-color: #808080;
-// 	border-width: 11px;
-// 	top: 50%;
-// 	margin-top: -11px;
-// }
 
 @media print
 {
