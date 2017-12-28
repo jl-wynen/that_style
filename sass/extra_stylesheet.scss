@@ -2,6 +2,8 @@
  * My own little style
  */
 
+// TODO check multi line descriptions for parameters, exceptions, etc.
+
 @import "mixins";
 
 // colors
@@ -32,7 +34,7 @@ h1.groupheader {
 
 h2.groupheader {
     border-bottom: 1px solid #555555;
-    color: $primary-color-dark;
+    color: black;
     font-size: 200%;
     font-weight: bold;
     margin-top: 1.75em;
@@ -241,6 +243,12 @@ div.contents {
     background-color: $background-color;
     padding: 0;
     margin: 5pt;
+
+    // the line after the member documentations
+    hr {
+        display: none;
+        visibility: hidden;
+    }
 }
 
 // override for 'normal' mode
@@ -429,7 +437,7 @@ table.memberdecls {
     background-color: #f6f6f6;
     line-height: 1.25;
     font-weight: bold;
-    color: $primary-color;
+    color: black;
     float: left;
     z-index: 0;
     position: relative;
@@ -543,12 +551,8 @@ table.memberdecls {
     @include box-shadow(none);
     
     /* allow movement of elements inside */
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    box-orient: vertical;
+    display: flex;
+    flex-direction: column;
 }
 
 /* overrides for docs on individual pages */
@@ -746,10 +750,8 @@ span.mlabel {
     padding-top: 0.5em;
     
     /* move definition line to bottom of memdoc */
-    -webkit-box-ordinal-group: 2;
-    -moz-box-ordinal-group: 2;
-    box-ordinal-group: 2;
-
+    order: 3;
+    
     // border above
     &::before {
         content: "";
@@ -1119,7 +1121,7 @@ dl.pre, dl.post, dl.invariant {
 
 dl.deprecated {
     background-color: #f6f6f6;
-    border-left: 4px solid black;
+    border: 1px solid black;
 }
 
 dl.todo {
