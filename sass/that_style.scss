@@ -296,8 +296,25 @@ table.memberdecls {
     padding: 0;
 }
 
+table.fieldtable {
+    @include border-radius(0);
+    @include box-shadow(none);
+}
+
 .memberdecls td, .fieldtable tr {
     background-color: inherit;
+}
+
+.fieldtable th {
+    display: none;
+    height: 0;
+    visibility: hidden;
+}
+
+td.fieldname {
+    color: $primary-color-light;
+    font-family: monospace;
+    font-weight: bold;
 }
 
 .memItemLeft, .memItemRight,
