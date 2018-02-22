@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * That one super awesome style for doxygen
+ * My own little style
  */
 body, table, div, p, dl {
   font: 400 14px/22px Roboto,sans-serif; }
@@ -487,8 +487,32 @@ table.memberdecls {
   margin: 0;
   padding: 0; }
 
+table.fieldtable {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none; }
+
 .memberdecls td, .fieldtable tr {
   background-color: inherit; }
+
+.fieldtable th {
+  display: none;
+  height: 0;
+  visibility: hidden; }
+
+td.fieldname {
+  color: #820a32;
+  font-family: monospace;
+  font-weight: bold; }
+
+th.markdownTableHeadLeft, th.markdownTableHeadRight,
+th.markdownTableHeadCenter, th.markdownTableHeadNone {
+  background-color: #414141;
+  color: white; }
 
 .memItemLeft, .memItemRight,
 .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
@@ -1407,3 +1431,5 @@ div.toc {
     overflow: inherit;
     display: inline;
     background-color: white; } }
+
+/*# sourceMappingURL=that_style.css.map */
