@@ -783,7 +783,7 @@ dl.reflist dd p {
 .params dt, .tparams dt {
   margin-bottom: 0.5em; }
 
-.params .paramname, .tparams .paramname, .retval .paramname {
+.params .paramname, .tparams .paramname, .retval .paramname, .exception .paramname {
   color: #820a32;
   font-family: monospace;
   font-weight: bold;
