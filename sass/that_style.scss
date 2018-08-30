@@ -185,11 +185,11 @@ div.ah, span.ah {
     margin-bottom: 3px;
     margin-top: 3px;
     padding: 0.2em;
-    
+
     border: none;
     @include border-radius(0);
     @include box-shadow(none);
-    
+
     font: 14pt monospace;
     font-weight: bold;
     text-transform: uppercase;
@@ -353,9 +353,9 @@ th.markdownTableHeadCenter, th.markdownTableHeadNone {
 }
 
 .memTemplParams {
-	color: #4665A2;
-        white-space: nowrap;
-	font-size: 80%;
+    color: black;
+    white-space: nowrap;
+    font-size: 100%;
 }
 
 /* Styles for detailed member documentation */
@@ -481,7 +481,7 @@ th.markdownTableHeadCenter, th.markdownTableHeadNone {
     background-color: $background-color;
     background-image: none;
     @include box-shadow(none);
-    
+
     /* allow movement of elements inside */
     display: flex;
     flex-direction: column;
@@ -603,7 +603,7 @@ dl.reflist dd p {
     margin-left: 0;
     padding-left: 0;
     margin-bottom: -0.25em;
-}       
+}
 
 .params dt, .tparams dt {
     margin-bottom: 0.5em;
@@ -620,8 +620,8 @@ dl.reflist dd p {
     font-family: monospace;
     font-style: italic;
     vertical-align: top;
-}       
-        
+}
+
 .params .paramdir, .tparams .paramdir {
     font-family: "courier new",courier,monospace;
     vertical-align: top;
@@ -680,10 +680,10 @@ span.mlabel {
 .memdoc .definition {
     position: relative;
     padding-top: 0.5em;
-    
+
     /* move definition line to bottom of memdoc */
     order: 3;
-    
+
     // border above
     &::before {
         content: "";
@@ -704,11 +704,11 @@ table.directory {
     border-collapse:collapse;
     width: 100%;
     font: 400 14px Roboto,sans-serif;
-    
+
     tr {
         // overwrite doxygen weirdness
         background-color: white !important;
-    
+
         &.even {
             background-color: #f6f6f6 !important;
         }
@@ -727,13 +727,13 @@ table.directory {
 // class / file / ... lists specific
 div.directory {
     border: none;
-    
+
     table.directory {
         tr {
             // this makes all lines the same height
             line-height: 17pt;
         }
-        
+
         td {
             margin: 0;
             padding: 0.5pt 6pt 0.5pt 0;
@@ -742,7 +742,7 @@ div.directory {
             &.entry {
                 white-space: nowrap;
             }
-            
+
             &.desc {
                 width: 100%;
                 padding-left: 6pt;
@@ -1016,12 +1016,12 @@ dl.section dd {
 	vertical-align: bottom;
 	border-collapse: separate;
 }
- 
+
 #projectlogo img
-{ 
+{
 	border: 0px none;
 }
- 
+
 #projectalign
 {
         vertical-align: middle;
@@ -1033,7 +1033,7 @@ dl.section dd {
 	margin: 0px;
 	padding: 2px 0px;
 }
-    
+
 #projectbrief
 {
 	font: 120% Tahoma, Arial,sans-serif;
@@ -1114,7 +1114,7 @@ div.toc {
         font: 10pt Roboto,DejaVu Sans,sans-serif;
         padding-left: 0;
         padding-top: 0.5ex;
-        
+
         .level1 {
             margin-left: 10pt;
         }

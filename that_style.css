@@ -543,9 +543,9 @@ th.markdownTableHeadCenter, th.markdownTableHeadNone {
   width: 100%; }
 
 .memTemplParams {
-  color: #4665A2;
+  color: black;
   white-space: nowrap;
-  font-size: 80%; }
+  font-size: 100%; }
 
 /* Styles for detailed member documentation */
 .memtitle {
