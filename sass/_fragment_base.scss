@@ -3,7 +3,7 @@
 */
 
 div.fragment {
-    padding: 0;
+    padding: 4px;
     margin: 4px 8px 4px 2px;
     color: #bebebe;
     background-color: #323232;
@@ -12,7 +12,6 @@ div.fragment {
     overflow-y: hidden;
     overflow-x: auto;
     position: relative;
-    
 }
 
 div.line {
@@ -24,7 +23,7 @@ div.line {
     margin: 0px;
     padding: 1px 0 1px 53px;
     white-space: pre;
-    
+
     @include transition-property(background-color);
     @include transition-duration(0s);
 
@@ -46,7 +45,7 @@ span.lineno {
     height: 100px;
     white-space: pre;
     border-right: 3px solid #1d7567;
-    background-color: #a0a0a0;
+    background-color: #323232;
 }
 
 span.lineno a, span.lineno a:visited {
