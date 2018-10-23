@@ -9,7 +9,7 @@ The style makes Doxygen documentation look like this:
 The full documentation these screenshots are taken from can be found here: https://jl-wynen.github.io/isle/index.html
 
 ## Requirements
-- Doxygen (tested with version 1.8.13)
+- Doxygen >= 1.8.13 (tested with version 1.8.13 and 1.8.14)
 - *optional*: a sass/scss compiler if you want to modify the style
 
 ## Simple usage
