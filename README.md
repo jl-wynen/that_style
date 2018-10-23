@@ -1,6 +1,13 @@
 # that style
 A plain, more modern HTML style for Doxygen
 
+The style makes Doxygen documentation look like this:
+![Screenshot of class doc](/screenshots/screenshot_class.png?raw=true "Screenshot of a class documentation")
+
+![Screenshot of function doc](/screenshots/screenshot_function.png?raw=true "Screenshot of a function documentation")
+
+The full documentation these screenshots are taken from can be found here: https://jl-wynen.github.io/isle/index.html
+
 ## Requirements
 - Doxygen (tested with version 1.8.13)
 - *optional*: a sass/scss compiler if you want to modify the style
